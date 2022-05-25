@@ -12,14 +12,14 @@ MediaPlayer.SetConfig({
 	--------------------------------------------------------------------------]]
 	google = {
 		["api_key"] = "AIzaSyAjSwUHzyoxhfQZmiSqoIBQpawm2ucF11E",
-		["referrer"] = "http://mediaplayer.pixeltailgames.com/"
+		["referrer"] = "https://mediaplayer.pixeltailgames.com/"
 	},
 
 	--[[------------------------------------------------------------------------
 		SoundCloud API
 
 		To register your own application, use the following webpage:
-		http://soundcloud.com/you/apps/new
+		https://soundcloud.com/you/apps/new
 	--------------------------------------------------------------------------]]
 	soundcloud = {
 		["client_id"] = "2e0e541854cbabd873d647c1d45f79e8"

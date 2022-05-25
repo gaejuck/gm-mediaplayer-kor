@@ -36,7 +36,7 @@ function SERVICE:OnBrowserReady( browser )
 	-- html = self.WrapHTML( html )
 	-- browser:SetHTML( html )
 
-	local url = "http://localhost/vimeo.html#" .. videoId
+	local url = "https://localhost/vimeo.html#" .. videoId
 	browser:OpenURL( url )
 
 end
