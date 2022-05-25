@@ -1,7 +1,7 @@
 AddCSLuaFile "shared.lua"
 include "shared.lua"
 
-local MetadataUrl = "https://vimeo.com/api/v2/video/%s.json"
+local MetadataUrl = "https://vimeo.com/api/oembed.json?url=https://vimeo.com/%s"
 
 local function OnReceiveMetadata( self, callback, body )
 
@@ -12,11 +12,9 @@ local function OnReceiveMetadata( self, callback, body )
 		return callback( false, "Failed to parse video's metadata response." )
 	end
 
-	data = data[1]
-
 	metadata.title		= data.title
-	metadata.duration	= data.duration
-	metadata.thumbnail	= data.thumbnail_medium
+	metadata.duration	= tonumber(data.duration)
+	metadata.thumbnail	= data.thumbnail_url
 
 	self:SetMetadata(metadata, true)
 	MediaPlayer.Metadata:Save(self)
@@ -42,7 +40,7 @@ function SERVICE:GetMetadata( callback )
 
 		local metadata = {}
 		metadata.title = cache.title
-		metadata.duration = cache.duration
+		metadata.duration = tonumber(cache.duration)
 		metadata.thumbnail = cache.thumbnail
 
 		self:SetMetadata(metadata)
