@@ -104,7 +104,6 @@ do
 		"youtube",
 		"googledrive",
 		"twitch",
-		"twitchstream",
 		"vimeo",
 
 		-- HTML Resources
