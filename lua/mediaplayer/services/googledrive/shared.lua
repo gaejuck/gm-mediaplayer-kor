@@ -25,10 +25,6 @@ function SERVICE:Match( url )
 	return false
 end
 
-function SERVICE:IsTimed()
-	return true
-end
-
 function SERVICE:GetGoogleDriveFileId()
 
 	local videoId

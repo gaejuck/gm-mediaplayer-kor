@@ -2,14 +2,35 @@ include "shared.lua"
 
 DEFINE_BASECLASS( "mp_service_browser" )
 
--- data:text/html,<object type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" data="https://video.google.com/get_player?docid=0B1K_ByAqaFKGamdrajd6WXFUSEs0VHI4eTJHNHpPdw&partnerid=30&el=leaf&cc_load_policy=1&enablejsapi=1&autoplay=1&start=30" width="100%" height="100%" style="visibility: visible;"></object>
+local GdriveURL = "https://drive.google.com/uc?export=open&confirm=yTib&id=%s"
 
--- https://docs.google.com/file/d/0B1K_ByAqaFKGamdrajd6WXFUSEs0VHI4eTJHNHpPdw/preview
+local JS_Volume = "if(window.MediaPlayer) MediaPlayer.volume = %s;"
+local JS_Pause = "if(window.MediaPlayer) MediaPlayer.pause();"
+local JS_Seek = [[
+	if (window.MediaPlayer) {
+		var seekTime = %s;
+		var curTime = window.MediaPlayer.currentTime;
+	
+		var diffTime = Math.abs(curTime - seekTime);
+		if (diffTime > 5) {
+			window.MediaPlayer.currentTime = seekTime
+		}
+	}
+]]
 
-local EmbedHtml = [[
-<object type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" data="%s" width="100%%" height="100%%" style="visibility: visible;"></object>]]
+local JS_Interface = [[
+	function check() {
+		var player = document.getElementsByTagName('video')[0];
+		if (!!player && player.paused == false && player.readyState == 4) {
+			clearInterval(checkerInterval);
 
-SERVICE.VideoUrlFormat = "https://video.google.com/get_player?docid=%s&enablejsapi=1&autoplay=1&controls=0&modestbranding=1&rel=0&showinfo=0&wmode=opaque&ps=docs&partnerid=30"
+			document.body.style.backgroundColor = "black";
+			window.MediaPlayer = player;
+
+		}
+	}
+	var checkerInterval = setInterval(check, 50);
+]]
 
 function SERVICE:OnBrowserReady( browser )
 
@@ -17,15 +38,32 @@ function SERVICE:OnBrowserReady( browser )
 
 	local fileId = self:GetGoogleDriveFileId()
 
-	local url = self.VideoUrlFormat:format(fileId)
-	local curTime = self:CurrentTime()
-
-	-- Add start time to URL if the video didn't just begin
-	if self:IsTimed() and curTime > 3 then
-		url = url .. "&start=" .. math.Round(curTime)
+	browser:OpenURL( GdriveURL:format(fileId) )
+	browser.OnDocumentReady = function(pnl)
+		browser:QueueJavascript( JS_Interface )
 	end
 
-	local html = self.WrapHTML( EmbedHtml:format(url) )
-	browser:SetHTML( html )
+end
 
+function SERVICE:Pause()
+	BaseClass.Pause( self )
+
+	if IsValid(self.Browser) then
+		self.Browser:RunJavascript(JS_Pause)
+		self._YTPaused = true
+	end
+
+end
+
+function SERVICE:SetVolume( volume )
+	local js = JS_Volume:format( MediaPlayer.Volume() )
+	self.Browser:RunJavascript(js)
+end
+
+function SERVICE:Sync()
+
+	local seekTime = self:CurrentTime()
+	if seekTime > 0 then
+		self.Browser:RunJavascript(JS_Seek:format(seekTime))
+	end
 end
