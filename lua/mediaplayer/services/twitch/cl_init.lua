@@ -4,6 +4,9 @@ DEFINE_BASECLASS( "mp_service_browser" )
 
 local TwitchUrl = "https://player.twitch.tv/?channel=%s&parent=pixeltailgames.com"
 
+local JS_Pause = "if(window.MediaPlayer) MediaPlayer.pause();"
+local JS_Volume = "if(window.MediaPlayer) MediaPlayer.volume = %s;"
+
 -- JS Snippet taken from the Cinema (Fixed Edition)
 -- https://github.com/FarukGamer/cinema
 local JS_Inferface = [[
@@ -61,13 +64,13 @@ function SERVICE:Pause()
 	BaseClass.Pause( self )
 
 	if IsValid(self.Browser) then
-		self.Browser:RunJavascript("if(window.MediaPlayer) MediaPlayer.pause();")
+		self.Browser:RunJavascript(JS_Pause)
 		self._YTPaused = true
 	end
 
 end
 
 function SERVICE:SetVolume( volume )
-	local js = ("if(window.MediaPlayer) MediaPlayer.volume = %s;"):format( MediaPlayer.Volume() )
+	local js = JS_Volume:format( MediaPlayer.Volume() )
 	self.Browser:RunJavascript(js)
 end
