@@ -2,55 +2,72 @@ include "shared.lua"
 
 DEFINE_BASECLASS( "mp_service_browser" )
 
-local TwitchUrl = "https://www.twitch.tv/%s/%s/%s/popout"
+local TwitchUrl = "https://player.twitch.tv/?channel=%s&parent=pixeltailgames.com"
 
----
--- Approximate amount of time it takes for the Twitch video player to load upon
--- loading the webpage.
---
-local playerLoadDelay = 5
+-- JS Snippet taken from the Cinema (Fixed Edition)
+-- https://github.com/FarukGamer/cinema
+local JS_Inferface = [[
+	function testSelector(elem, dataStr) {
+		var data = document.querySelectorAll( elem + "[data-test-selector]")
+		for (let i=0; i<data.length; i++) {
+			var selector = data[i].dataset.testSelector
+			if (!!selector && selector === dataStr) {
+				return data[i]
+				break
+			}
+		}
+	}
 
-local secMinute = 60
-local secHour = secMinute * 60
+	function target(dataStr) {
+		var data = document.querySelectorAll( "button[data-a-target]")
+		for (let i=0; i<data.length; i++) {
+			var selector = data[i].dataset.aTarget
+			if (!!selector && selector === dataStr) {
+				return data[i]
+				break
+			}
+		}
+	}
 
-local function formatTwitchTime( seconds )
-	local hours = math.floor((seconds / secHour) % 24)
-	local minutes = math.floor((seconds / secMinute) % 60)
-	seconds = math.floor(seconds % 60)
+	function check() {
+		var mature = target("player-overlay-mature-accept")
+		if (!!mature) {mature.click(); return;}
 
-	local tbl = {}
+		var player = document.getElementsByTagName('video')[0];
+		if (!testSelector("div", "sad-overlay") && !!player && player.paused == false && player.readyState == 4) {
+			clearInterval(checkerInterval);
 
-	if hours > 0 then
-		table.insert(tbl, hours)
-		table.insert(tbl, 'h')
-	end
-
-	if hours > 0 or minutes > 0 then
-		table.insert(tbl, minutes)
-		table.insert(tbl, 'm')
-	end
-
-	table.insert(tbl, seconds)
-	table.insert(tbl, 's')
-
-	return table.concat(tbl, '')
-end
+			window.MediaPlayer = player;
+		}
+	}
+	var checkerInterval = setInterval(check, 50);
+]]
 
 function SERVICE:OnBrowserReady( browser )
 
 	BaseClass.OnBrowserReady( self, browser )
 
-	local info = self:GetTwitchVideoInfo()
-	local url = TwitchUrl:format(info.channel, info.type, info.chapterId)
-
-	-- Move current time forward due to twitch player load time
-	local curTime = math.min( self:CurrentTime() + playerLoadDelay, self:Duration() )
-
-	local time = math.ceil( curTime )
-	if time > 5 then
-		url = url .. '?t=' .. formatTwitchTime(time)
-	end
+	local channel = self:GetTwitchChannel()
+	local url = TwitchUrl:format(channel)
 
 	browser:OpenURL( url )
+	browser.OnDocumentReady = function(pnl)
+		browser:QueueJavascript( JS_Inferface )
+	end
 
+end
+
+function SERVICE:Pause()
+	BaseClass.Pause( self )
+
+	if IsValid(self.Browser) then
+		self.Browser:RunJavascript("if(window.MediaPlayer) MediaPlayer.pause();")
+		self._YTPaused = true
+	end
+
+end
+
+function SERVICE:SetVolume( volume )
+	local js = ("if(window.MediaPlayer) MediaPlayer.volume = %s;"):format( MediaPlayer.Volume() )
+	self.Browser:RunJavascript(js)
 end

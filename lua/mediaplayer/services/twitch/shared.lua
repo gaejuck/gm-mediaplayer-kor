@@ -1,54 +1,44 @@
 DEFINE_BASECLASS( "mp_service_base" )
 
-SERVICE.Name 	= "Twitch.TV - Video"
-SERVICE.Id 		= "twv"
+SERVICE.Name 	= "Twitch.TV - Stream"
+SERVICE.Id 		= "twl"
 SERVICE.Base 	= "browser"
 
 function SERVICE:New( url )
 	local obj = BaseClass.New(self, url)
 
-	local info = obj:GetTwitchVideoInfo()
-	obj._data = info.channel .. "_" .. info.chapterId
+	local channel = obj:GetTwitchChannel()
+	obj._data = channel
 
 	return obj
 end
 
 function SERVICE:Match( url )
-	-- TODO: should the parsed url be passed instead?
-	return (string.match(url, "justin.tv") or
-			string.match(url, "twitch.tv")) and
-			string.match(url, ".tv/[%w_]+/%a/%d+")
+	return string.match(url, "twitch.tv") and
+			string.match(url, ".tv/[%w_]+$")
 end
 
-function SERVICE:GetTwitchVideoInfo()
+function SERVICE:IsTimed()
+	return false
+end
 
-	local info
+function SERVICE:GetTwitchChannel()
 
-	if self._twitchInfo then
+	local channel
 
-		info = self._twitchInfo
+	if self._twitchChannel then
+
+		channel = self._twitchChannel
 
 	elseif self.urlinfo then
 
 		local url = self.urlinfo
 
-		local channel, type, chapterId = string.match(url.path, "^/([%w_]+)/(%a)/(%d+)")
-
-		-- Chapter videos use /c/ while archived videos use /b/
-		if type ~= "c" then
-			type = "b"
-		end
-
-		info = {
-			channel		= channel,
-			type		= type,
-			chapterId	= chapterId
-		}
-
-		self._twitchInfo = info
+		channel = string.match(url.path, "^/([%w_]+)")
+		self._twitchChannel = channel
 
 	end
 
-	return info
+	return channel
 
 end
