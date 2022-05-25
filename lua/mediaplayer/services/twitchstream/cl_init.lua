@@ -1,16 +1,47 @@
 include "shared.lua"
 
-local htmlBaseUrl = MediaPlayer.GetConfigValue('html.base_url')
-
 DEFINE_BASECLASS( "mp_service_browser" )
 
-local TwitchUrl = "http://www.twitch.tv/%s/popout"
+local TwitchUrl = "https://player.twitch.tv/?channel=%s&parent=pixeltailgames.com"
 
-local JS_Play = "if(window.MediaPlayer) MediaPlayer.play();"
-local JS_Pause = "if(window.MediaPlayer) MediaPlayer.pause();"
+-- JS Snippet taken from the Cinema (Fixed Edition)
+-- https://github.com/FarukGamer/cinema
+local JS_Inferface = [[
+	function testSelector(elem, dataStr) {
+		var data = document.querySelectorAll( elem + "[data-test-selector]")
+		for (let i=0; i<data.length; i++) {
+			var selector = data[i].dataset.testSelector
+			if (!!selector && selector === dataStr) {
+				return data[i]
+				break
+			}
+		}
+	}
 
-local JS_HideControls = [[
-document.body.style.cssText = 'overflow:hidden;height:106.8% !important';]]
+	function target(dataStr) {
+		var data = document.querySelectorAll( "button[data-a-target]")
+		for (let i=0; i<data.length; i++) {
+			var selector = data[i].dataset.aTarget
+			if (!!selector && selector === dataStr) {
+				return data[i]
+				break
+			}
+		}
+	}
+
+	function check() {
+		var mature = target("player-overlay-mature-accept")
+		if (!!mature) {mature.click(); return;}
+
+		var player = document.getElementsByTagName('video')[0];
+		if (!testSelector("div", "sad-overlay") && !!player && player.paused == false && player.readyState == 4) {
+			clearInterval(checkerInterval);
+
+			window.MediaPlayer = player;
+		}
+	}
+	var checkerInterval = setInterval(check, 50);
+]]
 
 function SERVICE:OnBrowserReady( browser )
 
@@ -20,17 +51,23 @@ function SERVICE:OnBrowserReady( browser )
 	local url = TwitchUrl:format(channel)
 
 	browser:OpenURL( url )
-
-	browser:QueueJavascript( JS_HideControls )
-	self:InjectScript( htmlBaseUrl .. "scripts/services/twitch.js" )
+	browser.OnDocumentReady = function(pnl)
+		browser:QueueJavascript( JS_Inferface )
+	end
 
 end
 
 function SERVICE:Pause()
 	BaseClass.Pause( self )
 
-	if ValidPanel(self.Browser) then
-		self.Browser:RunJavascript(JS_Pause)
+	if IsValid(self.Browser) then
+		self.Browser:RunJavascript("if(window.MediaPlayer) MediaPlayer.pause();")
 		self._YTPaused = true
 	end
+
+end
+
+function SERVICE:SetVolume( volume )
+	local js = ("if(window.MediaPlayer) MediaPlayer.volume = %s;"):format( MediaPlayer.Volume() )
+	self.Browser:RunJavascript(js)
 end
