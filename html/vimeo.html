@@ -1,69 +1,89 @@
-<!DOCTYPE html><html class=no-js><head><meta charset=utf-8><title>Garry's Mod MediaPlayer</title><meta name=description content=""><meta name=viewport content="width=device-width"><link rel="shortcut icon" href=/favicon.ico><!-- Place favicon.ico and apple-touch-icon.png in the root directory --><link rel=stylesheet href=styles/main.css><body><iframe id=player_1 width=100% height=100% frameborder=0></iframe><script src=https://a.vimeocdn.com/js/froogaloop2.min.js></script><script type=text/javascript>console.log('Running script');
+<!DOCTYPE html>
+<html class=no-js>
 
-	window.MediaPlayer = (function(){
+<head>
+    <meta charset=utf-8>
+    <title>Garry's Mod MediaPlayer</title>
+    <meta name=description content="">
+    <meta name=viewport content="width=device-width">
+    <link rel="shortcut icon" href=/favicon.ico>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel=stylesheet href=styles/main.css>
+</head>
 
-		var videoId = location.hash.substr(1);
-		if (!videoId.length) return;
+<body><iframe id=player_1 width=100% height=100% frameborder=0></iframe>
+    <script src=https://a.vimeocdn.com/js/froogaloop2.min.js></script>
+    <script type=text/javascript>
+        console.log('Running script');
 
-		var url = 'https://player.vimeo.com/video/',
-			params = '?api=1&player_id=player_1&autoplay=true';
+        window.MediaPlayer = (function() {
 
-		console.info('Loading Vimeo player...');
+            var videoId = location.hash.substr(1);
+            if (!videoId.length) return;
 
-		var vimeoPlayers = document.querySelectorAll('iframe'),
-			player,
-			froogaloop,
-			curVolume,
-			lastSeekTime,
-			seekThreshold = 5; // seconds
+            var url = 'https://player.vimeo.com/video/',
+                params = '?api=1&player_id=player_1&autoplay=true';
 
-		for (var i = 0, length = vimeoPlayers.length; i < length; i++) {
-			player = vimeoPlayers[i];
-			player.src = url + videoId + params;
-			$f(player).addEvent('ready', ready);
-		}
+            console.info('Loading Vimeo player...');
 
-		function ready (playerId) {
-			froogaloop = $f(playerId);
-			console.info('Vimeo player is ready!');
-		}
+            var vimeoPlayers = document.querySelectorAll('iframe'),
+                player,
+                froogaloop,
+                curVolume,
+                lastSeekTime,
+                seekThreshold = 5; // seconds
 
-		return {
+            for (var i = 0, length = vimeoPlayers.length; i < length; i++) {
+                player = vimeoPlayers[i];
+                player.src = url + videoId + params;
+                $f(player).addEvent('ready', ready);
+            }
 
-			setVolume: function (volume) {
-				if (!froogaloop) return;
+            function ready(playerId) {
+                froogaloop = $f(playerId);
+                console.info('Vimeo player is ready!');
+            }
 
-				if (curVolume !== volume) {
-					froogaloop.api('setVolume', volume);
-					curVolume = volume;
-				}
-			},
+            return {
 
-			seek: function (seekTime) {
-				if (!froogaloop) return;
+                setVolume: function(volume) {
+                    if (!froogaloop) return;
 
-				var curTime = (new Date).getTime();
-				if (lastSeekTime && (((curTime - lastSeekTime) / 1000) < seekThreshold)) {
-					return;
-				}
+                    if (curVolume !== volume) {
+                        froogaloop.api('setVolume', volume);
+                        curVolume = volume;
+                    }
+                },
 
-				froogaloop.api('paused', function (paused) {
-					if (paused) return;
+                seek: function(seekTime) {
+                    if (!froogaloop) return;
 
-					froogaloop.api('getDuration', function (duration) {
-						if (seekTime > duration) return;
+                    var curTime = (new Date).getTime();
+                    if (lastSeekTime && (((curTime - lastSeekTime) / 1000) < seekThreshold)) {
+                        return;
+                    }
 
-						froogaloop.api('getCurrentTime', function (curTime) {
-							var diffTime = Math.abs(curTime - seekTime);
-							if (diffTime < seekThreshold) return;
+                    froogaloop.api('paused', function(paused) {
+                        if (paused) return;
 
-							froogaloop.api('seekTo', seekTime);
-							lastSeekTime = (new Date).getTime();
-						});
-					});
-				});
-			}
+                        froogaloop.api('getDuration', function(duration) {
+                            if (seekTime > duration) return;
 
-		};
+                            froogaloop.api('getCurrentTime', function(curTime) {
+                                var diffTime = Math.abs(curTime - seekTime);
+                                if (diffTime < seekThreshold) return;
 
-	})();</script>
+                                froogaloop.api('seekTo', seekTime);
+                                lastSeekTime = (new Date).getTime();
+                            });
+                        });
+                    });
+                }
+
+            };
+
+        })();
+    </script>
+</body>
+
+</html>
