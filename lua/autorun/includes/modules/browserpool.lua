@@ -91,7 +91,7 @@ local function setupPanel( panel )
 	panel:SetPos(0, 0)
 
 	-- Disable input
-	panel:SetKeyBoardInputEnabled(false)
+	panel:SetKeyboardInputEnabled(false)
 	panel:SetMouseInputEnabled(false)
 
 	-- Browser panels are usually manually drawn, use a regular panel if not

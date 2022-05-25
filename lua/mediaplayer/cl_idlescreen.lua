@@ -73,7 +73,7 @@ function MediaPlayer.GetIdlescreen()
 	if not MediaPlayer._idlescreen then
 		local browser = vgui.Create( "DMediaPlayerHTML" )
 		browser:SetPaintedManually(true)
-		browser:SetKeyBoardInputEnabled(false)
+		browser:SetKeyboardInputEnabled(false)
 		browser:SetMouseInputEnabled(false)
 		browser:SetPos(0,0)
 
