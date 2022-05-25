@@ -102,7 +102,6 @@ do
 		-- Browser
 		"browser", -- base
 		"youtube",
-		"googledrive",
 		"twitch",
 		"vimeo",
 
