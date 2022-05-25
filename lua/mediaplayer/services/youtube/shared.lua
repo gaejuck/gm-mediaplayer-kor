@@ -7,10 +7,8 @@ SERVICE.Base 	= "browser"
 local YtVideoIdPattern = "[%a%d-_]+"
 local UrlSchemes = {
 	"youtube%.com/watch%?v=" .. YtVideoIdPattern,
+	"youtube%.com/shorts/" .. YtVideoIdPattern,
 	"youtu%.be/watch%?v=" .. YtVideoIdPattern,
-	"youtube%.com/v/" .. YtVideoIdPattern,
-	"youtu%.be/v/" .. YtVideoIdPattern,
-	"youtube%.googleapis%.com/v/" .. YtVideoIdPattern
 }
 
 function SERVICE:New( url )
@@ -57,10 +55,6 @@ function SERVICE:GetYouTubeVideoId()
 		-- http://www.youtube.com/shorts/(videoId)
 		elseif url.path and string.match(url.path, "^/shorts/([%a%d-_]+)") then
 			videoId = string.match(url.path, "^/shorts/([%a%d-_]+)")
-
-		-- https://youtube.googleapis.com/v/(videoId)
-		elseif url.path and string.match(url.path, "^/v/([%a%d-_]+)") then
-			videoId = string.match(url.path, "^/v/([%a%d-_]+)")
 
 		-- https://youtu.be/(videoId)
 		elseif string.match(url.host, "youtu.be") and
