@@ -6,7 +6,6 @@ local pcall = pcall
 local print = print
 local Angle = Angle
 local IsValid = IsValid
-local ValidPanel = ValidPanel
 local Vector = Vector
 local cam = cam
 local Start3D = cam.Start3D
@@ -59,7 +58,7 @@ end
 function MEDIAPLAYER:DrawIdlescreen( w, h )
 	local browser = MediaPlayer.GetIdlescreen()
 
-	if ValidPanel(browser) then
+	if IsValid(browser) then
 		self:DrawHTML( browser, w, h )
 	end
 end

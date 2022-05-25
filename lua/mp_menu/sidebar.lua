@@ -146,7 +146,7 @@ function SidebarPresenter:ShowSidebar( mp )
 
 	self:SetMedia( mp )
 
-	if ValidPanel(self.Sidebar) then
+	if IsValid(self.Sidebar) then
 		self:HideSidebar()
 	end
 
@@ -173,7 +173,7 @@ function SidebarPresenter:HideSidebar()
 
 	self:ClearEvents()
 
-	if ValidPanel(self.Sidebar) then
+	if IsValid(self.Sidebar) then
 		self.Sidebar:Remove()
 	end
 
