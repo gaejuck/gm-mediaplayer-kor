@@ -10,40 +10,19 @@ local JS_Volume = "if(window.MediaPlayer) MediaPlayer.volume = %s;"
 -- JS Snippet taken from the Cinema (Fixed Edition)
 -- https://github.com/FarukGamer/cinema
 local JS_Inferface = [[
-	function testSelector(elem, dataStr) {
-		var data = document.querySelectorAll( elem + "[data-test-selector]")
-		for (let i=0; i<data.length; i++) {
-			var selector = data[i].dataset.testSelector
-			if (!!selector && selector === dataStr) {
-				return data[i]
-				break
-			}
-		}
-	}
-
-	function target(dataStr) {
-		var data = document.querySelectorAll( "button[data-a-target]")
-		for (let i=0; i<data.length; i++) {
-			var selector = data[i].dataset.aTarget
-			if (!!selector && selector === dataStr) {
-				return data[i]
-				break
-			}
-		}
-	}
-
-	function check() {
-		var mature = target("player-overlay-mature-accept")
-		if (!!mature) {mature.click(); return;}
+	var checkerInterval = setInterval(function() {
+		var matureAccept = document.querySelectorAll("[data-a-target=\"player-overlay-mature-accept\"]")[0]
+		if (!!matureAccept) {matureAccept.click(); return;}
 
 		var player = document.getElementsByTagName('video')[0];
-		if (!testSelector("div", "sad-overlay") && !!player && player.paused == false && player.readyState == 4) {
+		var adOverlay = document.querySelectorAll("[data-test-selector=\"sad-overlay\"]")[0]
+
+		if (!adOverlay && !!player && player.paused == false && player.readyState == 4) {
 			clearInterval(checkerInterval);
 
 			window.MediaPlayer = player;
 		}
-	}
-	var checkerInterval = setInterval(check, 50);
+	}, 50)
 ]]
 
 function SERVICE:OnBrowserReady( browser )
