@@ -9,7 +9,7 @@ local JS_Volume = "if(window.MediaPlayer) MediaPlayer.volume = %s;"
 
 -- JS Snippet taken from the Cinema (Fixed Edition)
 -- https://github.com/FarukGamer/cinema
-local JS_Inferface = [[
+local JS_Interface = [[
 	var checkerInterval = setInterval(function() {
 		var matureAccept = document.querySelectorAll("[data-a-target=\"player-overlay-mature-accept\"]")[0]
 		if (!!matureAccept) {matureAccept.click(); return;}
@@ -34,7 +34,7 @@ function SERVICE:OnBrowserReady( browser )
 
 	browser:OpenURL( url )
 	browser.OnDocumentReady = function(pnl)
-		browser:QueueJavascript( JS_Inferface )
+		browser:QueueJavascript( JS_Interface )
 	end
 
 end
