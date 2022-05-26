@@ -22,7 +22,7 @@ function MediaPlayer.Volume( volume )
 	if volume then
 
 		-- Normalize volume
-		volume = volume > 1 and volume/100 or volume
+		volume = volume > 1 and volume / 100 or volume
 
 		-- Set volume convar
 		RunConsoleCommand( "mediaplayer_volume", volume )

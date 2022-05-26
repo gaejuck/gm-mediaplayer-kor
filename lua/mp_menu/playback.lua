@@ -74,7 +74,7 @@ function PANEL:OnMediaChanged( media )
 	if media then
 		local title = media:Title()
 		self.MediaTitle:SetText( title )
-		self.MediaTitle:SetToolTip( title )
+		self.MediaTitle:SetTooltip( title )
 
 		self.AddedByLbl:SetPlayer( media:GetOwner(), media:OwnerName(), media:OwnerSteamID() )
 
@@ -326,7 +326,7 @@ end
 
 function SEEKBAR:PaintKnob( w, h )
 
-	draw.RoundedBoxEx( ceil(w/2), 0, 0, w, h, color_white, true, true, true, true )
+	draw.RoundedBoxEx( ceil(w / 2), 0, 0, w, h, color_white, true, true, true, true )
 
 end
 

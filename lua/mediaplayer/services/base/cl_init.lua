@@ -13,7 +13,7 @@ end
 
 function SERVICE:Stop()
 	self._playing = false
-	self:emit('stop')
+	self:emit("stop")
 end
 
 function SERVICE:PlayPause()

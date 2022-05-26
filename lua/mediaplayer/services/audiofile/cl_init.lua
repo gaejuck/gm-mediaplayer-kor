@@ -14,7 +14,7 @@ function SERVICE:Volume( volume )
 	volume = BaseClass.Volume( self, volume )
 
 	if IsValid(self.Channel) then
-		local vol = volume > 1 and volume/100 or volume
+		local vol = volume > 1 and volume / 100 or volume
 
 		-- IGModAudioChannel is limited by the actual gmod volume
 		-- local gmvolume = GetConVarNumber("volume")
@@ -69,7 +69,7 @@ function SERVICE:Play()
 					self.Channel:Play()
 				end
 
-				self:emit('channelReady', channel)
+				self:emit("channelReady", channel)
 			end,
 			function()
 				local msg = ("Failed to load media player audio '%s'"):format( self.url )
@@ -199,27 +199,27 @@ local function DrawSpectrumAnalyzer( fft, w, h )
 	for x = 0, BANDS do
 		local sum = 0
 		local sc = 0
-		local b1 = math.pow(2,x*10.0/(BANDS-1))
+		local b1 = math.pow(2,x * 10.0 / (BANDS-1))
 
-		if (b1>1023) then b1=1023 end
-		if (b1<=b0) then b1=b0+1 end
-		sc=10+b1-b0;
+		if (b1 > 1023) then b1 = 1023 end
+		if (b1 <= b0) then b1 = b0 + 1 end
+		sc = 10 + b1-b0;
 		while b0 < b1 do
 			sum = sum + fft[b0]
 			b0 = b0 + 1
 		end
 
-		y = (math.sqrt(sum/math.log10(sc))*1.7*h)-4
+		y = (math.sqrt(sum / math.log10(sc)) * 1.7 * h) - 4
 		y = math.Clamp(y, 0, h)
 
-		local col = HSVToColor( 120 - (120 * y/h), 1, 1 )
+		local col = HSVToColor( 120 - (120 * y / h), 1, 1 )
 		col.a = VisualizerBarAlpha
 		surface.SetDrawColor(col)
 
 		surface.DrawRect(
-			math.ceil(x*(w/BANDS)),
+			math.ceil(x * (w / BANDS)),
 			math.ceil(h - y - 1),
-			math.ceil(w/BANDS) - 2,
+			math.ceil(w / BANDS) - 2,
 			y + 1
 		)
 	end
@@ -232,7 +232,7 @@ local color_white = color_white
 local FFT_2048 = FFT_2048
 local GMOD_CHANNEL_PLAYING = GMOD_CHANNEL_PLAYING
 
-local HTMLMAT_STYLE_ARTWORK = 'htmlmat.style.artwork'
+local HTMLMAT_STYLE_ARTWORK = "htmlmat.style.artwork"
 AddHTMLMaterialStyle( HTMLMAT_STYLE_ARTWORK, {
 	width = 720,
 	height = 480
@@ -252,13 +252,13 @@ function SERVICE:Draw( w, h )
 	if IsValid(channel) and channel:GetState() == GMOD_CHANNEL_PLAYING then
 		local fft = {}
 		channel:FFT( fft, FFT_2048 )
-		
+
 		-- exposed on the table in case anyone wants to use this
 		self.fft = fft
-		
+
 		DrawSpectrumAnalyzer( fft, w, h )
 	end
-	
+
 	self:PostDraw()
 
 end

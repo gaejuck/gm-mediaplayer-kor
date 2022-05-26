@@ -241,7 +241,7 @@ local function MediaPlayerThink()
 end
 
 if timer.Exists( "MediaPlayerThink" ) then
-	timer.Destroy( "MediaPlayerThink" )
+	timer.Remove( "MediaPlayerThink" )
 end
 
 -- TODO: only start timer when at least one mediaplayer is created; stop it when

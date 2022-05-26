@@ -3,7 +3,7 @@ SERVICE.Id		= "h5v"
 SERVICE.Base	= "res"
 
 SERVICE.FileExtensions = {
-	'webm',
+	"webm",
 	-- 'mp4',	-- not yet supported by Awesomium
 	-- 'ogg'	-- already registered as audio, need a work-around :(
 }
@@ -11,7 +11,7 @@ SERVICE.FileExtensions = {
 DEFINE_BASECLASS( "mp_service_base" )
 
 if CLIENT then
-	
+
 	local MimeTypes = {
 		webm = "video/webm",
 		mp4 = "video/mp4",

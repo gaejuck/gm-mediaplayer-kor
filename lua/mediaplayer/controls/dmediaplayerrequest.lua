@@ -14,9 +14,9 @@ function PANEL:Init()
 	local w = math.Clamp( ScrW() - 100, 800, 1152 + self.HistoryWidth )
 	local h = ScrH()
 	if h > 800 then
-		h = h * 3/4
+		h = h * 3 / 4
 	elseif h > 600 then
-		h = h * 7/8
+		h = h * 7 / 8
 	end
 	self:SetSize( w, h )
 
@@ -53,7 +53,7 @@ function PANEL:Init()
 		end
 	end )
 
-	local requestUrl = MediaPlayer.GetConfigValue( 'request.url' )
+	local requestUrl = MediaPlayer.GetConfigValue( "request.url" )
 	self.Browser:OpenURL( requestUrl )
 
 	self.Controls = vgui.Create( "MPHTMLControls", self.BrowserContainer )

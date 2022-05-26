@@ -2,19 +2,11 @@ include "shared.lua"
 
 DEFINE_BASECLASS( "mp_base" )
 
-local pcall = pcall
 local print = print
-local Angle = Angle
 local IsValid = IsValid
-local Vector = Vector
 local cam = cam
-local Start3D = cam.Start3D
 local Start3D2D = cam.Start3D2D
 local End3D2D = cam.End3D2D
-local draw = draw
-local math = math
-local string = string
-local surface = surface
 
 local FullscreenCvar = MediaPlayer.Cvars.Fullscreen
 
@@ -40,7 +32,7 @@ function MEDIAPLAYER:NetReadUpdate()
 end
 
 local RenderScale = 0.1
-local InfoScale = 1/17
+local InfoScale = 1 / 17
 
 function MEDIAPLAYER:GetOrientation()
 	local ent = self.Entity

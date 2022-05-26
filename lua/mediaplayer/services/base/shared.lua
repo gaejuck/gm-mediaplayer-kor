@@ -1,6 +1,5 @@
 local string = string
 local urllib = url
-local os = os
 
 local FormatSeconds = MediaPlayerUtils.FormatSeconds
 
@@ -33,7 +32,7 @@ function SERVICE:New( url )
 end
 
 function SERVICE:__tostring()
-	return string.format( '%s, %s, %s',
+	return string.format( "%s, %s, %s",
 		self:Title(),
 		FormatSeconds(self:Duration()),
 		self:OwnerName() )
@@ -131,7 +130,7 @@ function SERVICE:SetMetadata( metadata, new )
 		title = title:sub(1, MaxTitleLength)
 
 		-- Escape any '%' char with a letter following it
-		title = title:gsub('%%%a', '%%%%')
+		title = title:gsub("%%%a", "%%%%")
 
 		self._metadata.title = title
 	end
@@ -168,7 +167,7 @@ end
 ------------------------------------------------------------------------------]]
 
 function SERVICE:StartTime( seconds )
-	if type(seconds) == 'number' then
+	if isnumber(seconds) then
 		if self._PauseTime then
 			self._PauseTime = RealTime()
 		end
@@ -215,7 +214,7 @@ function SERVICE:Play()
 	self._playing = true
 
 	if CLIENT then
-		self:emit('play')
+		self:emit("play")
 	end
 end
 
@@ -224,6 +223,6 @@ function SERVICE:Pause()
 	self._playing = false
 
 	if CLIENT then
-		self:emit('pause')
+		self:emit("pause")
 	end
 end

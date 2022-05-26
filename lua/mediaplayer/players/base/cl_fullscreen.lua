@@ -1,15 +1,8 @@
 local pcall = pcall
-local Color = Color
 local RealTime = RealTime
 local ScrW = ScrW
 local ScrH = ScrH
 local IsValid = IsValid
-local Vector = Vector
-local cam = cam
-local draw = draw
-local math = math
-local string = string
-local surface = surface
 
 local FullscreenCvar = MediaPlayer.Cvars.Fullscreen
 

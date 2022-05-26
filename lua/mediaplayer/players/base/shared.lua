@@ -117,7 +117,7 @@ function MEDIAPLAYER:OnPlayerStateChanged( old, new )
 	local validMedia = IsValid(media)
 
 	if MediaPlayer.DEBUG then
-		print( "MEDIAPLAYER.OnPlayerStateChanged", old .. ' => ' .. new )
+		print( "MEDIAPLAYER.OnPlayerStateChanged", old .. " => " .. new )
 	end
 
 	if new == MP_STATE_PLAYING then
@@ -389,7 +389,7 @@ function MEDIAPLAYER:OnMediaStarted( media )
 			self:SetPlayerState( MP_STATE_PLAYING )
 		end
 
-		self:emit('mediaStarted', media)
+		self:emit("mediaStarted", media)
 
 	elseif SERVER then
 		self:SetPlayerState( MP_STATE_ENDED )
@@ -421,7 +421,7 @@ function MEDIAPLAYER:OnMediaFinished( media )
 		media:Stop()
 	end
 
-	self:emit('mediaFinished', media)
+	self:emit("mediaFinished", media)
 
 	if SERVER then
 		if media and self:GetQueueRepeat() then

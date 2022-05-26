@@ -79,7 +79,7 @@ function SERVICE:GetMetadata( callback )
 
 	else
 		local videoId = self:GetYouTubeVideoId()
-		local videoUrl = "https://www.youtube.com/watch?v="..videoId
+		local videoUrl = "https://www.youtube.com/watch?v=" .. videoId
 
 		self:Fetch( videoUrl,
 			-- On Success
@@ -90,10 +90,10 @@ function SERVICE:GetMetadata( callback )
 				if not status or not metadata.title or not isnumber(metadata.duration) then
 					-- Title is nil or Duration is nan
 					if istable(metadata) then
-						metadata = "title = "..type(metadata.title)..", duration = "..type(metadata.duration)
+						metadata = "title = " .. type(metadata.title) .. ", duration = " .. type(metadata.duration)
 					end
 					-- Misc error
-					callback(false, "Failed to parse HTML Page for metadata: "..metadata)
+					callback(false, "Failed to parse HTML Page for metadata: " .. metadata)
 					return
 				end
 
@@ -107,7 +107,7 @@ function SERVICE:GetMetadata( callback )
 			end,
 			-- On failure
 			function( code )
-				callback(false, "Failed to load YouTube ["..tostring(code).."]")
+				callback(false, "Failed to load YouTube [" .. tostring(code) .. "]")
 			end,
 			-- Headers
 			{
@@ -123,10 +123,10 @@ end
 local function ParseElementAttribute( element, attribute )
 	if not element then return end
 	-- Find the desired attribute
-	local output = string.match( element, attribute.."%s-=%s-%b\"\"" )
+	local output = string.match( element, attribute .. "%s-=%s-%b\"\"" )
 	if not output then return end
 	-- Remove the 'attribute=' part
-	output = string.gsub( output, attribute.."%s-=%s-", "" )
+	output = string.gsub( output, attribute .. "%s-=%s-", "" )
 	-- Trim the quotes around the value string
 	return string.sub( output, 2, -2 )
 end

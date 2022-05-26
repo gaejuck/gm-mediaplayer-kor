@@ -1,9 +1,5 @@
-local pcall = pcall
 local Color = Color
 local RealTime = RealTime
-local IsValid = IsValid
-local Vector = Vector
-local cam = cam
 local draw = draw
 local math = math
 local string = string
@@ -41,13 +37,13 @@ local function DrawTextBox( text, font, x, y, xalign, yalign )
 	tw, th = surface.GetTextSize( text )
 
 	if xalign == TEXT_ALIGN_CENTER then
-		x = x - tw/2
+		x = x - tw / 2
 	elseif xalign == TEXT_ALIGN_RIGHT then
 		x = x - tw
 	end
 
 	if yalign == TEXT_ALIGN_CENTER then
-		y = y - th/2
+		y = y - th / 2
 	elseif yalign == TEXT_ALIGN_BOTTOM then
 		y = y - th
 	end
@@ -133,7 +129,7 @@ function MEDIAPLAYER:DrawMediaInfo( media, w, h )
 		local percent = math.Clamp( curTime / duration, 0, 1 )
 
 		-- Bar height
-		local bh = math.Round(h * 1/32)
+		local bh = math.Round(h * 1 / 32)
 
 		-- Bar background
 		draw.RoundedBox( 0, 0, h - bh, w, bh, BarBgColor )

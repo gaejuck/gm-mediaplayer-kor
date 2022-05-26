@@ -42,7 +42,7 @@ function PANEL:Init()
 	--
 	-- Implement a console - because awesomium doesn't provide it for us anymore
 	--
-	local console_funcs = {'log','error','debug','warn','info'}
+	local console_funcs = {"log","error","debug","warn","info"}
 	for _, func in pairs(console_funcs) do
 		self:AddFunction( "console", func, function(param)
 			self:ConsoleMessage( param, func )

@@ -78,7 +78,7 @@ function MediaPlayer.GetIdlescreen()
 		browser:SetPos(0,0)
 
 		local resolution = MediaPlayer.Resolution()
-		browser:SetSize( resolution * 16/9, resolution )
+		browser:SetSize( resolution * 16 / 9, resolution )
 
 		-- TODO: set proper browser size
 

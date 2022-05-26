@@ -67,7 +67,7 @@ else -- CLIENT
 		end
 	end
 
-	local HTMLMAT_STYLE_ARTWORK_BLUR = 'htmlmat.style.artwork_blur'
+	local HTMLMAT_STYLE_ARTWORK_BLUR = "htmlmat.style.artwork_blur"
 	AddHTMLMaterialStyle( HTMLMAT_STYLE_ARTWORK_BLUR, {
 		width = 720,
 		height = 480
@@ -94,7 +94,7 @@ else -- CLIENT
 		Start3D2D( pos, ang, scale )
 			local tw, th = w / scale, h / scale
 			draw.SimpleText( "Press E to begin watching", "MediaTitle",
-				tw/2, th/2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
+				tw / 2, th / 2, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 		End3D2D()
 	end
 

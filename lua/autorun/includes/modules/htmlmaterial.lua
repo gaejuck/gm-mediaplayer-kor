@@ -83,7 +83,7 @@ local function onImageLoaded(key, browser)
 	end
 
 	if #downloads == 0 and TimerRunning then
-		timer.Destroy(UpdateTimerName)
+		timer.Remove(UpdateTimerName)
 		TimerRunning = false
 	end
 end
@@ -114,7 +114,7 @@ local function enqueueUrl( url, styleName, key, callback )
 			updateCache(download)
 			onImageLoaded(key, browser)
 
-			if type(callback) == "function" then
+			if isfunction(callback) then
 				callback( cache[key] )
 			end
 		end)

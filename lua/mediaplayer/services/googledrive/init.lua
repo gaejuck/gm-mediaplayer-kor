@@ -8,10 +8,10 @@ local TableLookup = MediaPlayerUtils.TableLookup
 -- https://stackoverflow.com/questions/17779197/google-drive-embed-no-iframe
 -- https://developers.google.com/drive/v2/reference/files/get
 
-local APIKey = MediaPlayer.GetConfigValue('google.api_key')
+local APIKey = MediaPlayer.GetConfigValue("google.api_key")
 local MetadataUrl = "https://www.googleapis.com/drive/v2/files/%s?key=%s"
 
-local SupportedExtensions = { 'mp4' }
+local SupportedExtensions = { "mp4" }
 
 local function OnReceiveMetadata( self, callback, body )
 
@@ -23,13 +23,13 @@ local function OnReceiveMetadata( self, callback, body )
 	end
 
 	if resp.error then
-		return callback(false, TableLookup(resp, 'error.message'))
+		return callback(false, TableLookup(resp, "error.message"))
 	end
 
-	local ext = resp.fileExtension or ''
+	local ext = resp.fileExtension or ""
 
 	if not table.HasValue(SupportedExtensions, ext) then
-		return callback(false, 'MediaPlayer currently only supports .mp4 Google Drive videos')
+		return callback(false, "MediaPlayer currently only supports .mp4 Google Drive videos")
 	end
 
 	metadata.title = resp.title
@@ -81,7 +81,7 @@ function SERVICE:GetMetadata( callback )
 				OnReceiveMetadata( self, callback, body )
 			end,
 			function( code )
-				callback(false, "Failed to load YouTube ["..tostring(code).."]")
+				callback(false, "Failed to load YouTube [" .. tostring(code) .. "]")
 			end
 		)
 

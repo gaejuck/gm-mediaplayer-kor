@@ -58,7 +58,7 @@ function SERVICE:GetMetadata( callback )
 				OnReceiveMetadata( self, callback, body )
 			end,
 			function( code )
-				callback(false, "Failed to load Vimeo ["..tostring(code).."]")
+				callback(false, "Failed to load Vimeo [" .. tostring(code) .. "]")
 			end
 		)
 

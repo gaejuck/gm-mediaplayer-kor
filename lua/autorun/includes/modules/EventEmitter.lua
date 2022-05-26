@@ -12,7 +12,7 @@ local function indexOfListener(listeners, listener)
 
 	while i > 0 do
 		value = listeners[i]
-		if type(value) == 'table' and value.listener == listener then
+		if istable(value) and value.listener == listener then
 			return i
 		end
 		i = i - 1
@@ -64,7 +64,7 @@ end
 
 function EventEmitter:addListener(evt, listener)
 	local listeners = self:getListenersAsObject(evt)
-	local listenerIsWrapped = type(listener) == 'table'
+	local listenerIsWrapped = istable(listener)
 
 	for key, _ in pairs(listeners) do
 		if rawget(listeners, key) and indexOfListener(listeners[key], listener) == -1 then

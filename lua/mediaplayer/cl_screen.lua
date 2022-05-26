@@ -44,7 +44,7 @@ local function getScreenPos( ent, aimVector )
 end
 
 function MediaPlayer.DispatchScreenTrace( func, aimVector )
-	if type(func) ~= "function" then return end
+	if not isfunction(func) then return end
 	if not aimVector then
 		aimVector = LocalPlayer():GetAimVector()
 	end

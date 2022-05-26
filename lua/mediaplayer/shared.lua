@@ -30,7 +30,7 @@ end
 function MediaPlayer.GetConfigValue( key )
 	local value = MediaPlayerUtils.TableLookup( MediaPlayer.config, key )
 
-	if type(value) == 'nil' then
+	if value == nil then
 		ErrorNoHalt("WARNING: MediaPlayer config value not found for key `" .. tostring(key) .. "`\n")
 	end
 

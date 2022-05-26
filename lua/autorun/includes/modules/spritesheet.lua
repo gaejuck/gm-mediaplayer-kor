@@ -1,4 +1,3 @@
-local math = math
 local surface = surface
 local table = table
 

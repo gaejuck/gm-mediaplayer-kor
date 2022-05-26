@@ -100,7 +100,7 @@ function VOLUME_BUTTON:Init()
 
 	self.BaseClass.Init( self )
 
-	self:SetIcon( 'mp-volume' )
+	self:SetIcon( "mp-volume" )
 	self:SetSize( 18, 17 )
 
 end
@@ -155,7 +155,7 @@ end
 
 function VOLUME_SLIDER:PaintKnob( w, h )
 
-	draw.RoundedBoxEx( ceil(w/2), 0, 0, w, h, color_white, true, true, true, true )
+	draw.RoundedBoxEx( ceil(w / 2), 0, 0, w, h, color_white, true, true, true, true )
 
 end
 

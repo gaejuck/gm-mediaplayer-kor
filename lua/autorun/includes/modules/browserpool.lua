@@ -196,7 +196,7 @@ function browserpool.get( callback )
 		numActive = numActive + 1
 
 		if DEBUG then
-			print( "browserpool: Spawned new browser [Active: "..numActive.."]" )
+			print( "browserpool: Spawned new browser [Active: " .. numActive .. "]" )
 		end
 
 		table.insert( active, panel )
@@ -278,7 +278,7 @@ function browserpool.release( panel, destroy )
 			numActive = numActive - 1
 
 			if DEBUG then
-				print( "browserpool: Destroyed browser [Active: "..numActive.."]" )
+				print( "browserpool: Destroyed browser [Active: " .. numActive .. "]" )
 			end
 
 		elseif not destroy then
@@ -290,7 +290,7 @@ function browserpool.release( panel, destroy )
 			table.insert( available, panel )
 
 			if DEBUG then
-				print( "browserpool: Pooled browser [Active: "..numActive.."]" )
+				print( "browserpool: Pooled browser [Active: " .. numActive .. "]" )
 			end
 
 		end

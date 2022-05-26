@@ -50,7 +50,7 @@ local DefaultConfig = {
 	angle	= Angle(0,90,90),	-- rotation
 	-- attachment = "corner"	-- attachment name
 	width = 64,					-- screen width
-	height = 64 * 9/16			-- screen height
+	height = 64 * 9 / 16			-- screen height
 }
 
 function EntityMeta:GetMediaPlayerPosition()

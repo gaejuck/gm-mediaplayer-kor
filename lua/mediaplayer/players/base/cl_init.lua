@@ -153,8 +153,8 @@ local function OnMediaSeek( len )
 	if media then
 		media:StartTime( startTime )
 	else
-		ErrorNoHalt('ERROR: MediaPlayer received seek message while no media is playing' ..
-			'[' .. mpId .. ']\n')
+		ErrorNoHalt("ERROR: MediaPlayer received seek message while no media is playing" ..
+			"[" .. mpId .. "]\n")
 		MediaPlayer.RequestUpdate( mp )
 	end
 

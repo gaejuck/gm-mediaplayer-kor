@@ -5,7 +5,7 @@
 local VoteskipManager = {}
 VoteskipManager.__index = VoteskipManager
 
-local VOTESKIP_REQ_VOTE_RATIO = 2/3
+local VOTESKIP_REQ_VOTE_RATIO = 2 / 3
 
 ---
 -- Initialize the Voteskip Manager object.

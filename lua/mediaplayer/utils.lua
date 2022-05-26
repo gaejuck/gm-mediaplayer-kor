@@ -1,6 +1,5 @@
 if SERVER then AddCSLuaFile() end
 
-local file = file
 local math = math
 local urllib = url
 local ceil = math.ceil
@@ -72,29 +71,29 @@ end
 
 -- https://github.com/xfbs/PiL3/blob/master/18MathLibrary/shuffle.lua
 function utils.Shuffle(list)
-    -- make and fill array of indices
-    local indices = {}
-    for i = 1, #list do
-        indices[#indices+1] = i
-    end
+	-- make and fill array of indices
+	local indices = {}
+	for i = 1, #list do
+		indices[#indices + 1] = i
+	end
 
-    -- create shuffled list
-    local shuffled = {}
-    for i = 1, #list do
-        -- get a random index
-        local index = math.random(#indices)
+	-- create shuffled list
+	local shuffled = {}
+	for i = 1, #list do
+		-- get a random index
+		local index = math.random(#indices)
 
-        -- get the value
-        local value = list[indices[index]]
+		-- get the value
+		local value = list[indices[index]]
 
-        -- remove it from the list so it won't be used again
-        table.remove(indices, index)
+		-- remove it from the list so it won't be used again
+		table.remove(indices, index)
 
-        -- insert into shuffled array
-        shuffled[#shuffled+1] = value
-    end
+		-- insert into shuffled array
+		shuffled[#shuffled + 1] = value
+	end
 
-    return shuffled
+	return shuffled
 end
 
 function utils.Retry( func, success, error, maxAttempts )
@@ -126,7 +125,7 @@ end
 
 local function clearTimeout( timerID )
 	if timer.Exists( timerID ) then
-		timer.Destroy( timerID )
+		timer.Remove( timerID )
 	end
 end
 
@@ -217,7 +216,7 @@ if CLIENT then
 	end
 
 	function utils.ParseHHMMSS( time )
-	    local tbl = {}
+		local tbl = {}
 
 		-- insert fragments in reverse
 		for fragment, _ in string.gmatch(time, ":?(%d+)") do

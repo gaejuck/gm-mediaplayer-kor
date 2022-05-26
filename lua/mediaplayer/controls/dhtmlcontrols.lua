@@ -25,7 +25,7 @@ function PANEL:Init()
 	self.BackButton:SetIcon( "mp-back" )
 	self.BackButton:SetSize( ButtonSize, ButtonSize )
 	self.BackButton:Dock( LEFT )
-	self.BackButton:DockMargin( Spacing*3, Margins, Spacing, Margins )
+	self.BackButton:DockMargin( Spacing * 3, Margins, Spacing, Margins )
 	self.BackButton.DoClick = function()
 		self.BackButton:SetDisabled( true )
 		self:HTMLBack()
@@ -59,7 +59,7 @@ function PANEL:Init()
 	self.HomeButton:SetIcon( "mp-home" )
 	self.HomeButton:SetSize( ButtonSize, ButtonSize )
 	self.HomeButton:Dock( LEFT )
-	self.HomeButton:DockMargin( Spacing, Margins, Spacing*3, Margins )
+	self.HomeButton:DockMargin( Spacing, Margins, Spacing * 3, Margins )
 	self.HomeButton.DoClick = function()
 		self.HTML:Stop()
 		self.HTML:OpenURL( self:GetHomeURL() )
@@ -178,7 +178,7 @@ function PANEL:UpdateHistory( url )
 	-- So clear the front out so we can re-write history!!
 	if ( self.Cur < table.Count( self.History ) ) then
 
-		for i = self.Cur+1, table.Count( self.History ) do
+		for i = self.Cur + 1, table.Count( self.History ) do
 			self.History[i] = nil
 		end
 
@@ -263,7 +263,7 @@ function RequestButton:Init()
 
 	local ButtonSize = 32
 
-	self:SetSize( ButtonSize*8, ButtonSize )
+	self:SetSize( ButtonSize * 8, ButtonSize )
 	self:SetFont( "MediaRequestButton" )
 
 	self:SetDisabled( true )

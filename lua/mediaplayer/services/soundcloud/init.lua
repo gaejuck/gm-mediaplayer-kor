@@ -3,7 +3,7 @@ include "shared.lua"
 
 local urllib = url
 
-local ClientId = MediaPlayer.GetConfigValue('soundcloud.client_id')
+local ClientId = MediaPlayer.GetConfigValue("soundcloud.client_id")
 
 -- https://developers.soundcloud.com/docs/api/reference
 local MetadataUrl = {
@@ -33,7 +33,7 @@ local function OnReceiveMetadata( self, callback, body )
 
 	local thumbnail = resp.artwork_url
 	if thumbnail then
-		thumbnail = string.Replace( thumbnail, 'large', 't500x500' )
+		thumbnail = string.Replace( thumbnail, "large", "t500x500" )
 	end
 
 	-- https://developers.soundcloud.com/docs/api/reference#tracks
@@ -101,7 +101,7 @@ function SERVICE:GetMetadata( callback )
 				OnReceiveMetadata( self, callback, body )
 			end,
 			function( code )
-				callback(false, "Failed to load YouTube ["..tostring(code).."]")
+				callback(false, "Failed to load YouTube [" .. tostring(code) .. "]")
 			end
 		)
 

@@ -69,7 +69,7 @@ local function InputThink()
 
 			if dispatch then
 				-- Use same behavior as the hook system
-				if type(name) == 'table' then
+				if istable(name) then
 					if IsValid(name) then
 						tbl.Toggle( name, down, held, key )
 					else

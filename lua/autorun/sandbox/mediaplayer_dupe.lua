@@ -186,7 +186,7 @@ local function RenderMediaPlayerDupe( Dupe )
 	-- Render each entity in a circle
 	for k, v in pairs( Dupe.Entities ) do
 
-		for i=0, math.pi*2, 0.2 do
+		for i = 0, math.pi * 2, 0.2 do
 
 			view.origin = CamPos + Up * math.sin( i ) + Right * math.cos( i )
 
@@ -218,7 +218,7 @@ local function RenderMediaPlayerDupe( Dupe )
 	-- Render each entity in a circle
 	for k, v in pairs( Dupe.Entities ) do
 
-		for i=0, math.pi*2, 0.2 do
+		for i = 0, math.pi * 2, 0.2 do
 
 			view.origin = CamPos + Up * math.sin( i ) + Right * math.cos( i )
 			cam.Start( view )
@@ -264,7 +264,7 @@ local function RenderMediaPlayerDupe( Dupe )
 		if ( istable( v.EntityMods ) ) then
 
 			if ( istable( v.EntityMods.colour ) ) then
-				render.SetColorModulation( v.EntityMods.colour.Color.r/255, v.EntityMods.colour.Color.g/255, v.EntityMods.colour.Color.b/255, v.EntityMods.colour.Color.a/255 )
+				render.SetColorModulation( v.EntityMods.colour.Color.r / 255, v.EntityMods.colour.Color.g / 255, v.EntityMods.colour.Color.b / 255, v.EntityMods.colour.Color.a / 255 )
 			end
 
 			if ( istable( v.EntityMods.material ) ) then
@@ -321,7 +321,7 @@ local function RenderMediaPlayerDupe( Dupe )
 	-- Media Player branding
 	--
 	cam.Start2D()
-		DrawOutlinedText( "MEDIA PLAYER", "DupeMediaText", 512/2, 512 - 34,
+		DrawOutlinedText( "MEDIA PLAYER", "DupeMediaText", 512 / 2, 512 - 34,
 			color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 	cam.End2D()
 
@@ -344,7 +344,7 @@ local function SaveMediaPlayerDupe( Dupe, jpegdata )
 	-- Encode and compress the dupe
 	--
 	local Dupe = util.TableToJSON( Dupe )
-	if ( !isstring( Dupe ) ) then
+	if ( not isstring( Dupe ) ) then
 		Msg( "There was an error converting the dupe to a json string" );
 	end
 

@@ -12,7 +12,7 @@ if CLIENT then
 
 	function SERVICE:OnBrowserReady( browser )
 		local resolution = MediaPlayer.Resolution()
-		local w = resolution * 16/9
+		local w = resolution * 16 / 9
 		local h = resolution
 
 		if IsValid(self.Entity) then
@@ -74,7 +74,7 @@ if CLIENT then
 		BaseClass.Stop( self )
 
 		if self._promise then
-			self._promise:Cancel('Service has been stopped')
+			self._promise:Cancel("Service has been stopped")
 			self._promise = nil
 		end
 

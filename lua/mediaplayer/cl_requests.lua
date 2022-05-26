@@ -144,7 +144,7 @@ function MediaPlayer.Seek( mp, time )
 	if not mpId then return end
 
 	-- always convert to time in seconds before sending
-	if type(time) == 'string' then
+	if isstring(time) then
 		time = MediaPlayerUtils.ParseHHMMSS(time) or 0
 	end
 

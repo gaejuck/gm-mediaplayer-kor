@@ -134,7 +134,7 @@ function DICON:PaintAt( x, y, dw, dh )
 		local OffX = ceil((dw - w) * 0.5)
 		local OffY = ceil((dh - h) * 0.5)
 
-		spritesheet.DrawIcon( self.m_strIcon, OffX+y, OffY+y, w, h, self.m_Color )
+		spritesheet.DrawIcon( self.m_strIcon, OffX + y, OffY + y, w, h, self.m_Color )
 		return true
 
 	end
@@ -158,7 +158,7 @@ AccessorFunc( DICONBTN, "m_bStretchToFit", 			"StretchToFit" )
 
 function DICONBTN:Init()
 
-	self:SetDrawBackground( false )
+	self:SetPaintBackground( false )
 	self:SetDrawBorder( false )
 	self:SetStretchToFit( false )
 
