@@ -19,17 +19,15 @@ local JS_Seek = [[
 ]]
 
 local JS_Interface = [[
-	function check() {
+	var checkerInterval = setInterval(function() {
 		var player = document.getElementsByTagName('video')[0];
 		if (!!player && player.paused == false && player.readyState == 4) {
 			clearInterval(checkerInterval);
 
 			document.body.style.backgroundColor = "black";
 			window.MediaPlayer = player;
-
 		}
-	}
-	var checkerInterval = setInterval(check, 50);
+	}, 50)
 ]]
 
 function SERVICE:OnBrowserReady( browser )
