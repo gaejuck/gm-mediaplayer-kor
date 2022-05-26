@@ -1,4 +1,4 @@
-DEFINE_BASECLASS( "mp_service_browser" )
+DEFINE_BASECLASS( "mp_service_base" )
 
 SERVICE.Name 	= "Vimeo"
 SERVICE.Id 		= "vm"

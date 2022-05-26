@@ -35,9 +35,8 @@ local function OnReceiveMetadata( self, callback, body )
 	metadata.title = resp.title
 	metadata.thumbnail = resp.thumbnailLink
 
-	-- TODO: duration? etc.
-	-- no duration metadata returned :(
-	metadata.duration = 3600 * 4 -- default to 4 hours
+	-- Duration is taken from Client via PreRequest
+	metadata.duration = self._metaDuration
 
 	self:SetMetadata(metadata, true)
 	MediaPlayer.Metadata:Save(self)
@@ -81,9 +80,17 @@ function SERVICE:GetMetadata( callback )
 				OnReceiveMetadata( self, callback, body )
 			end,
 			function( code )
-				callback(false, "Failed to load YouTube [" .. tostring(code) .. "]")
+				callback(false, "Failed to load Google [" .. tostring(code) .. "]")
 			end
 		)
 
 	end
+end
+
+function SERVICE:NetReadRequest()
+
+	if not self.PrefetchMetadata then return end
+
+	self._metaDuration = net.ReadUInt( 16 )
+
 end

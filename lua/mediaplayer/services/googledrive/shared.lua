@@ -2,7 +2,9 @@ DEFINE_BASECLASS( "mp_service_base" )
 
 SERVICE.Name 	= "Google Drive"
 SERVICE.Id 		= "gd"
-SERVICE.Base 	= "yt"
+SERVICE.Base 	= "browser"
+
+SERVICE.PrefetchMetadata = true
 
 local GdFileIdPattern = "[%a%d-_]+"
 local UrlSchemes = {
@@ -49,6 +51,3 @@ function SERVICE:GetGoogleDriveFileId()
 	return videoId
 
 end
-
--- Used for clientside inheritence of the YouTube service
-SERVICE.GetYouTubeVideoId = GetGoogleDriveFileId
