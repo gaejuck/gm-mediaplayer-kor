@@ -304,6 +304,10 @@ h1 {
     background-size: 90px;
 }
 
+.logo-dailymotion {
+	background-image: url(../images/logos/dailymotion.png);
+}
+
 .logo-twitch {
     background-image: url(../images/logos/twitch.png)
 }
