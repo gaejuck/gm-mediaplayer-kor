@@ -273,8 +273,7 @@ if CLIENT then
 	--- 
 	-- Gathers the Duration from URI
 	-- Works only with URIs that lead directly to the video
-	function utils.GatherVideoDuration( uri, callback )
-
+	do
 		-- https://developer.mozilla.org/en-US/docs/Web/API/MediaError
 		local ErrorCodes = {
 			[1] = "MEDIA_ERR_ABORTED",
@@ -284,42 +283,45 @@ if CLIENT then
 		}
 
 		local HTML_Code = [[
-		<html><body> <video id="video" src="{@VideoSrc}" preload="metadata"></video>
-			<script>
-				const video = document.querySelector('video');
-				video.onloadedmetadata  = function() { console.log("DURATION:" + video.duration)};
-				video.onerror = function() { console.log("ERROR:" + video.error.code ) };
-			</script>
-		</body></html>
+			<html><body> <video id="video" src="{@VideoSrc}" preload="metadata"></video>
+				<script>
+					const video = document.querySelector('video');
+					video.onloadedmetadata  = function() { console.log("DURATION:" + video.duration)};
+					video.onerror = function() { console.log("ERROR:" + video.error.code ) };
+				</script>
+			</body></html>
 		]]
 
-		local panel = vgui.Create("HTML")
-		panel:SetSize(100,100)
-		panel:SetAlpha(0)
-		panel:SetMouseInputEnabled(false)
+		function utils.GatherVideoDuration( uri, callback )
 
-		function panel:ConsoleMessage(msg)
-			if MediaPlayer.DEBUG then
-				print("MediaPlayer Gathering: ", msg)
+			local panel = vgui.Create("HTML")
+			panel:SetSize(100,100)
+			panel:SetAlpha(0)
+			panel:SetMouseInputEnabled(false)
+
+			function panel:ConsoleMessage(msg)
+				if MediaPlayer.DEBUG then
+					print("MediaPlayer Gathering: ", msg)
+				end
+
+				if msg:StartWith("DURATION:") then
+					local duration = math.ceil(tonumber(string.sub(msg, 10)))
+
+					callback(true, duration)
+					panel:Remove()
+				end
+
+				if msg:StartWith("ERROR:") then
+					local code = tonumber(string.sub(msg, 7))
+					local err = ErrorCodes[code] or "MEDIA_ERR_UNKOWN"
+
+					callback(false, err)
+					panel:Remove()
+				end
 			end
 
-			if msg:StartWith("DURATION:") then
-				local duration = math.ceil(tonumber(string.sub(msg, 10)))
-
-				callback(true, duration)
-				panel:Remove()
-			end
-
-			if msg:StartWith("ERROR:") then
-				local code = tonumber(string.sub(msg, 7))
-				local err = ErrorCodes[code] or "MEDIA_ERR_UNKOWN"
-
-				callback(false, err)
-				panel:Remove()
-			end
+			panel:SetHTML(HTML_Code:Replace( "{@VideoSrc}", uri ))
 		end
-
-		panel:SetHTML(HTML_Code:Replace( "{@VideoSrc}", uri ))
 	end
 
 end
