@@ -276,10 +276,11 @@ if CLIENT then
 	do
 		-- https://developer.mozilla.org/en-US/docs/Web/API/MediaError
 		local ErrorCodes = {
-			[1] = "MEDIA_ERR_ABORTED",
-			[2] = "MEDIA_ERR_NETWORK",
-			[3] = "MEDIA_ERR_DECODE",
-			[4] = "MEDIA_ERR_SRC_NOT_SUPPORTED",
+			[1] = "The user canceled the media.", -- MEDIA_ERR_ABORTED
+			[2] = "A network error occurred while fetching the media.", -- MEDIA_ERR_NETWORK
+			[3] = "An error occurred while decoding the media.", -- MEDIA_ERR_DECODE
+			[4] = "The audio is missing or is in a format not supported by your browser.", -- MEDIA_ERR_SRC_NOT_SUPPORTED
+			[5] = "An unknown error occurred.", -- MEDIA_ERR_UNKOWN
 		}
 
 		local HTML_Code = [[
@@ -313,7 +314,7 @@ if CLIENT then
 
 				if msg:StartWith("ERROR:") then
 					local code = tonumber(string.sub(msg, 7))
-					local err = ErrorCodes[code] or "MEDIA_ERR_UNKOWN"
+					local err = ErrorCodes[code] or ErrorCodes[5]
 
 					callback(false, err)
 					panel:Remove()
