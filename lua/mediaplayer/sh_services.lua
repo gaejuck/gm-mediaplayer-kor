@@ -105,6 +105,7 @@ do
 		"googledrive",
 		"twitch",
 		"vimeo",
+		"dailymotion",
 
 		-- HTML Resources
 		"resource", -- base
