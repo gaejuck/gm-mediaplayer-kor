@@ -1,5 +1,7 @@
-Media Player
+Media Player (Fixed Edition)
 ============
+# IN PROGRESS, THIS IS EXPERIMENTAL AND SHOULD NOT BE USED ON SERVERS YET
+
 
 ![Preview](https://steamuserimages-a.akamaihd.net/ugc/403430334757512796/4EFCE2D358BCAF42389E36B62CB11E9849842E07/)
 
