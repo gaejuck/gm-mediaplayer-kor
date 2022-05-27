@@ -299,6 +299,11 @@ h1 {
     background-image: url(../images/logos/soundcloud.png)
 }
 
+.logo-vimeo {
+    background-image: url(../images/logos/vimeo.svg);
+    background-size: 90px;
+}
+
 .logo-twitch {
     background-image: url(../images/logos/twitch.png)
 }
