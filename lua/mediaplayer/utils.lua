@@ -280,7 +280,7 @@ if CLIENT then
 			[1] = "MEDIA_ERR_ABORTED",
 			[2] = "MEDIA_ERR_NETWORK",
 			[3] = "MEDIA_ERR_DECODE",
-			[4] = "MEDIA_ERR_SRC_NOT_SUPPORTED (Installed Codec Fix?)",
+			[4] = "MEDIA_ERR_SRC_NOT_SUPPORTED",
 		}
 
 		local HTML_Code = [[
