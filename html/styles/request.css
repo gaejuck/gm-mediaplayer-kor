@@ -304,6 +304,10 @@ h1 {
     background-size: 90px;
 }
 
+.logo-archive {
+	background-image: url(../images/logos/archive.png);
+}
+
 .logo-dailymotion {
 	background-image: url(../images/logos/dailymotion.png);
 }

@@ -106,6 +106,7 @@ do
 		"twitch",
 		"vimeo",
 		"dailymotion",
+		"archive",
 
 		-- HTML Resources
 		"resource", -- base
