@@ -14,7 +14,7 @@ do -- Media Hook
 				document.querySelector(".np_DialogConsent-accept").click();
 			}
 
-			var player = document.querySelector("video.dmp_Video");
+			var player = document.querySelector("video#dmp_Video");
 			if (!!player && player.paused == false && player.readyState == 4) {
 				clearInterval(checkerInterval);
 
