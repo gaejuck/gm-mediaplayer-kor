@@ -4,6 +4,8 @@ SERVICE.Name 	= "YouTube"
 SERVICE.Id 		= "yt"
 SERVICE.Base 	= "browser"
 
+SERVICE.PrefetchMetadata = true
+
 local YtVideoIdPattern = "[%a%d-_]+"
 local UrlSchemes = {
 	"youtube%.com/watch%?v=" .. YtVideoIdPattern,
