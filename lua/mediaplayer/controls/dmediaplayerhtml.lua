@@ -31,6 +31,7 @@ local FILTER_NONE = 1
 
 -----------------------------------------------------------]]
 
+
 function PANEL:Init()
 
 	self.JS = {}
@@ -38,6 +39,13 @@ function PANEL:Init()
 	self.MouseActions = {}
 
 	self.URL = "data:text/html,"
+
+	hook.Add( "HUDPaint", self, function() self:HUDPaint() end )
+
+end
+
+
+function PANEL:OnDocumentReady( url )
 
 	--
 	-- Implement a console - because awesomium doesn't provide it for us anymore
@@ -52,8 +60,6 @@ function PANEL:Init()
 	self:AddFunction( "gmod", "getUrl", function( url )
 		self:SetURL( url )
 	end )
-
-	hook.Add( "HUDPaint", self, function() self:HUDPaint() end )
 
 end
 
@@ -111,7 +117,11 @@ function PANEL:Think()
 end
 
 function PANEL:FetchPageURL()
-	local js = "gmod.getUrl(window.location.href);"
+	local js = [[
+		if (typeof gmod === 'object' && typeof gmod.getUrl === 'function') {
+			gmod.getUrl(window.location.href);
+		}
+	]]
 	self:RunJavascript(js)
 end
 
