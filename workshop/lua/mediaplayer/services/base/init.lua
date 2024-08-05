@@ -30,9 +30,6 @@ local HttpHeaders = {
 	-- Keep Alive causes problems on dedicated servers apparently.
 	-- ["Connection"] = "keep-alive",
 
-	-- Required for Google API requests; uses browser API key.
-	["Referer"] = MediaPlayer.GetConfigValue("google.referrer"),
-
 	-- Don't use improperly formatted GMod user agent in case anything actually
 	-- checks the user agent.
 	["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
