@@ -4,8 +4,7 @@ SERVICE.Base	= "res"
 
 SERVICE.FileExtensions = {
 	"webm",
-	-- 'mp4',	-- not yet supported by Awesomium
-	-- 'ogg'	-- already registered as audio, need a work-around :(
+	"mp4",
 }
 
 DEFINE_BASECLASS( "mp_service_base" )
@@ -15,23 +14,22 @@ if CLIENT then
 	local MimeTypes = {
 		webm = "video/webm",
 		mp4 = "video/mp4",
-		ogg = "video/ogg"
 	}
 
 	local EmbedHTML = [[
-<video id="player" autoplay loop style="
-		width: 100%%;
-		height: 100%%;">
-	<source src="%s" type="%s">
-</video>
-]]
+		<video id="player" autoplay loop style="
+				width: 100%%;
+				height: 100%%;">
+			<source src="%s" type="%s">
+		</video>
+	]]
 
 	local JS_Volume = [[(function () {
-	var elem = document.getElementById('player');
-	if (elem) {
-		elem.volume = %s;
-	}
-}());]]
+		var elem = document.getElementById('player');
+		if (elem) {
+			elem.volume = % s;
+		}
+	}());]]
 
 	function SERVICE:GetHTML()
 		local url = self.url
