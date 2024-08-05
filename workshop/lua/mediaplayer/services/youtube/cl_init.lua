@@ -46,7 +46,6 @@ function SERVICE:OnBrowserReady( browser )
 	local videoId = self:GetYouTubeVideoId()
 	local hostname = GetConVar("mediaplayer_invidious_instance"):GetString()
 	local url = ("https://%s/embed/%s"):format(hostname, videoId)
-	print(url)
 
 	local curTime = self:CurrentTime()
 
