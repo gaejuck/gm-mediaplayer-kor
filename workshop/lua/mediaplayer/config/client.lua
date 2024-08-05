@@ -12,7 +12,7 @@ MediaPlayer.SetConfig({
 		-- Base URL where HTML content is located.
 		-- @type String
 		--
-		base_url = "https://gmod-mediaplayer.pages.dev/"
+		base_url = "https://purrcoding.github.io/gm-mediaplayer/"
 
 	},
 
@@ -25,7 +25,7 @@ MediaPlayer.SetConfig({
 		-- URL of the request menu.
 		-- @type String
 		--
-		url = "https://gmod-mediaplayer.pages.dev/request.html"
+		url = "https://purrcoding.github.io/gm-mediaplayer/request.html"
 
 	}
 
