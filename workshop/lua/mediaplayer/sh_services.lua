@@ -117,7 +117,6 @@ do
 		-- IGModAudioChannel
 		"audiofile",
 		"shoutcast",
-		"soundcloud"
 	}
 
 	for _, name in ipairs(services) do
