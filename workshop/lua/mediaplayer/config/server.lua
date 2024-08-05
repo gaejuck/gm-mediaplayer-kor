@@ -16,16 +16,6 @@ MediaPlayer.SetConfig({
 	},
 
 	--[[------------------------------------------------------------------------
-		SoundCloud API
-
-		To register your own application, use the following webpage:
-		https://soundcloud.com/you/apps/new
-	--------------------------------------------------------------------------]]
-	soundcloud = {
-		["client_id"] = "2e0e541854cbabd873d647c1d45f79e8"
-	},
-
-	--[[------------------------------------------------------------------------
 		Twitch Developer Application
 
 		To register your own application, see the following webpage:
