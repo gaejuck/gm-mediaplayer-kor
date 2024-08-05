@@ -39,7 +39,6 @@ end
 
 if SERVER then
 	AddCSLuaFile "config/client.lua"
-	include "config/server.lua"
 else
 	include "config/client.lua"
 end
