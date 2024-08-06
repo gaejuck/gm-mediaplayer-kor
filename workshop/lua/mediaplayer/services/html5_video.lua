@@ -2,6 +2,8 @@ SERVICE.Name	= "HTML5 Video"
 SERVICE.Id		= "h5v"
 SERVICE.Base	= "res"
 
+SERVICE.PrefetchMetadata = true
+
 SERVICE.FileExtensions = {
 	"webm",
 	"mp4",
@@ -9,7 +11,30 @@ SERVICE.FileExtensions = {
 
 DEFINE_BASECLASS( "mp_service_base" )
 
+function SERVICE:IsTimed()
+	if self._istimed == nil then
+		self._istimed = self:Duration() > 0
+	end
+
+	return self._istimed
+end
+
 if CLIENT then
+
+	local JS_Pause = "if(window.MediaPlayer) MediaPlayer.pause();"
+	local JS_Play = "if(window.MediaPlayer) MediaPlayer.play();"
+	local JS_Volume = "if(window.MediaPlayer) MediaPlayer.volume = %s;"
+	local JS_Seek = [[
+		if (window.MediaPlayer) {
+			var seekTime = %s;
+			var curTime = window.MediaPlayer.currentTime;
+
+			var diffTime = Math.abs(curTime - seekTime);
+			if (diffTime > 5) {
+				window.MediaPlayer.currentTime = seekTime
+			}
+		}
+	]]
 
 	local MimeTypes = {
 		webm = "video/webm",
@@ -22,14 +47,22 @@ if CLIENT then
 				height: 100%%;">
 			<source src="%s" type="%s">
 		</video>
-	]]
 
-	local JS_Volume = [[(function () {
-		var elem = document.getElementById('player');
-		if (elem) {
-			elem.volume = % s;
-		}
-	}());]]
+		<script>
+			var checkerInterval = setInterval(function() {
+				var player = document.getElementsByTagName("VIDEO")[0]
+				if (!!player) {
+					if (player.paused) {player.play();}
+					if (player.paused === false && player.readyState === 4) {
+						clearInterval(checkerInterval);
+
+						window.MediaPlayer = player;
+						player.style = "width:100%%; height: 100%%;";
+					}
+				}
+			}, 50);
+		</script>
+	]]
 
 	function SERVICE:GetHTML()
 		local url = self.url
@@ -42,14 +75,90 @@ if CLIENT then
 		return EmbedHTML:format(url, mime)
 	end
 
-	function SERVICE:Volume( volume )
-		local origVolume = volume
+	function SERVICE:Pause()
+		BaseClass.Pause( self )
 
-		volume = BaseClass.Volume( self, volume )
+		if IsValid(self.Browser) then
+			self.Browser:RunJavascript(JS_Pause)
+		end
 
-		if origVolume and IsValid( self.Browser ) then
-			self.Browser:RunJavascript(JS_Volume:format(volume))
+	end
+
+	function SERVICE:SetVolume( volume )
+		local js = JS_Volume:format( MediaPlayer.Volume() )
+		self.Browser:RunJavascript(js)
+	end
+
+	function SERVICE:Sync()
+
+		local seekTime = self:CurrentTime()
+		if self:IsTimed() and seekTime > 0 then
+			self.Browser:RunJavascript(JS_Seek:format(seekTime))
 		end
 	end
 
+	function SERVICE:IsMouseInputEnabled()
+		return IsValid( self.Browser )
+	end
+
+	function SERVICE:PreRequest( callback )
+		MediaPlayerUtils.GatherVideoDuration( self.url, function(success, duration)
+			self._metaDuration = duration
+			callback()
+		end )
+	end
+
+	function SERVICE:NetWriteRequest()
+		net.WriteUInt( self._metaDuration, 16 )
+	end
+
+end
+
+if SERVER then
+	function SERVICE:GetMetadata( callback )
+
+		if self._metadata then
+			callback( self._metadata )
+			return
+		end
+
+		local cache = MediaPlayer.Metadata:Query(self)
+
+		if MediaPlayer.DEBUG then
+			print("MediaPlayer.GetMetadata Cache results:")
+			PrintTable(cache or {})
+		end
+
+		if cache then
+
+			local metadata = {}
+			metadata.title = cache.title
+			metadata.duration = tonumber(cache.duration)
+			metadata.thumbnail = cache.thumbnail
+
+			self:SetMetadata(metadata)
+			MediaPlayer.Metadata:Save(self)
+
+			callback(self._metadata)
+
+		else
+			local metadata = {}
+
+			metadata.title = self.url
+			metadata.duration = self._metaDuration
+
+			self:SetMetadata(metadata, true)
+			MediaPlayer.Metadata:Save(self)
+
+			callback(self._metadata)
+		end
+	end
+
+	function SERVICE:NetReadRequest()
+
+		if not self.PrefetchMetadata then return end
+
+		self._metaDuration = net.ReadUInt( 16 )
+
+	end
 end
