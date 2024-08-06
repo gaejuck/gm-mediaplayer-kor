@@ -102,9 +102,16 @@ if CLIENT then
 	end
 
 	function SERVICE:PreRequest( callback )
-		MediaPlayerUtils.GatherVideoDuration( self.url, function(success, duration)
-			self._metaDuration = duration
-			callback()
+		MediaPlayerUtils.GatherVideoDuration( self.url, function(success, response)
+
+			if success then
+				self._metaDuration = response
+				callback()
+
+				return
+			end
+
+			callback(response)
 		end )
 	end
 
