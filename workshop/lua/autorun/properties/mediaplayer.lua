@@ -166,15 +166,3 @@ AddMediaPlayerProperty( "mp-disable", {
 		MediaPlayer.RequestListen( ent )
 	end
 })
-
-AddMediaPlayerProperty( "mp-instance-switcher", {
-	MenuLabel	=	"YouTube Instance Switcher",
-	MenuIcon	=	"icon16/cog.png",
-	Filter		=	IsMediaPlayer,
-
-	Action		=	function( self, ent )
-
-		RunConsoleCommand("mediaplayer_invidious_switch")
-
-	end
-})
