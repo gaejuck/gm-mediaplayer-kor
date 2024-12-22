@@ -1,9 +1,10 @@
 {
-	"title"		:	"Cinema (Fixed edition)",
-	"type"		:	"gamemode",
-	"tags"		:	[ "fun", "roleplay" ],
+	"title"		:	"Media Player (Fixed edition)",
+	"type"		:	"ServerContent",
+	"tags"		:	[ "fun", "cartoon", "comic" ],
 	"ignore"	:   [
 		"*.md",
-		"*.vtx"
+		"*.vtx",
+		"*.fgd"
 	]
 }
