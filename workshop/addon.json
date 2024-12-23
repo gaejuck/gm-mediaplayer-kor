@@ -1,7 +1,7 @@
 {
 	"title"		:	"Media Player (Fixed edition)",
-	"type"		:	"ServerContent",
-	"tags"		:	[ "fun", "cartoon" ],
+	"type"		:	"Tool",
+	"tags"		:	[ "fun", "movie" ],
 	"ignore"	:   [
 		"*.md",
 		"*.vtx",
