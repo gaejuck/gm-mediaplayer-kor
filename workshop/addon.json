@@ -4,7 +4,7 @@
 	"tags"		:	[ "fun", "movie" ],
 	"ignore"	:   [
 		"*.md",
-		"*.vtx",
+		"*.sw.vtx",
 		"*.fgd"
 	]
 }
