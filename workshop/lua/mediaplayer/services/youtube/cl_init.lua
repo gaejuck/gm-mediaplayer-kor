@@ -2,6 +2,13 @@ include "shared.lua"
 
 DEFINE_BASECLASS( "mp_service_browser" )
 
+--[[
+	Credits to veitikka (https://github.com/veitikka) for fixing YouTube service and writing the
+	Workaround with a Metadata parser.
+
+	Src: https://github.com/samuelmaddock/gm-mediaplayer/pull/34
+--]]
+
 local JS_Pause = [[
 	if(window.MediaPlayer) {
 		MediaPlayer.pause();
