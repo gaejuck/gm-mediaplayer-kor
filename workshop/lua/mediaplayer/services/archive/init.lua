@@ -109,7 +109,7 @@ function SERVICE:GetMetadata( callback )
 
 		local apiurl = MetadataUrl:format( identifier )
 		self:Fetch(apiurl, onReceive, function( code )
-			callback(false, "Failed to load Vimeo [" .. tostring(code) .. "]")
+			callback(false, "Failed to load Archive Video [" .. tostring(code) .. "]")
 		end)
 	end
 end
