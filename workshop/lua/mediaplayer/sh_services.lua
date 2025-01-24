@@ -103,7 +103,6 @@ do
 		"browser", -- base
 		"youtube",
 		"twitch",
-		"vimeo",
 		"dailymotion",
 		"archive",
 
