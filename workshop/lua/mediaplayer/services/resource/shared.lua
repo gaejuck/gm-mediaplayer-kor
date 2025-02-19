@@ -7,9 +7,12 @@ SERVICE.FileExtensions = {}
 
 function SERVICE:Match( url )
 	-- check supported file extensions
-	for _, ext in pairs(self.FileExtensions) do
-		if url:find("([^/]+%." .. ext .. ")$") then
-			return true
+	local ext = string.GetExtensionFromFilename(url):match("(.[^?]+)")
+	if ext then
+		for _, ext2 in pairs(self.FileExtensions) do
+			if ext == ext2 then
+				return true
+			end
 		end
 	end
 
