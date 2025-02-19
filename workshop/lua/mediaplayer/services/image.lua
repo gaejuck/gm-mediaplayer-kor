@@ -2,7 +2,7 @@ SERVICE.Name 	= "Image"
 SERVICE.Id 		= "img"
 SERVICE.Base 	= "res"
 
-SERVICE.FileExtensions = { "png", "jpg", "jpeg", "gif" }
+SERVICE.FileExtensions = { "png", "jpg", "jpeg", "gif", "webp", "avif", "apng" }
 
 if CLIENT then
 
