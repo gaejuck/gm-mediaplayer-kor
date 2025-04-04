@@ -287,25 +287,12 @@ h1 {
     color: #666
 }
 
-.logo-reddit {
-    background-image: url(../images/logos/reddit.png)
-}
-
-.logo-archive {
-	background-image: url(../images/logos/archive.png);
-}
-
-.logo-dailymotion {
-	background-image: url(../images/logos/dailymotion.png);
-}
-
-.logo-twitch {
-    background-image: url(../images/logos/twitch.png)
-}
-
-.logo-youtube {
-    background-image: url(../images/logos/youtube.png)
-}
+.logo-reddit { background-image: url(../images/logos/reddit.png) }
+.logo-archive { background-image: url(../images/logos/archive.png); }
+.logo-dailymotion { background-image: url(../images/logos/dailymotion.png); }
+.logo-twitch { background-image: url(../images/logos/twitch.png) }
+.logo-youtube { background-image: url(../images/logos/youtube.png) }
+.logo-soundcloud { background-image: url(../images/logos/soundcloud.png) }
 
 .notice {
     text-align: center;
