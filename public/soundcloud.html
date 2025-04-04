@@ -13,8 +13,8 @@
   					get: (searchParams, prop) => searchParams.get(prop),
 				});
 
-				const audioTrack = `https://soundcloud.com/${params.track}`
-				const shouldPlay = params.play
+				const audioTrack = `https://soundcloud.com/${params.track || "ick-astley-official/never-gonna-give-you-up-4"}` 
+				const shouldPlay = params.play || true
 
 				const response = await fetch(`https://soundcloud.com/oembed?format=json&url=${audioTrack}`)
 				const json = await response.json()
