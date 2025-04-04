@@ -102,6 +102,7 @@ do
 		-- Browser
 		"browser", -- base
 		"youtube",
+		"soundcloud",
 		"twitch",
 		"dailymotion",
 		"archive",
