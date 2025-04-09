@@ -59,8 +59,14 @@ local JS_Interface = [[
 	})()
 ]]
 
-local API_URL = "https://www.youtube.com/watch?v=%s"
+
+--[[
+	This site is hosted on a private repo with Cloudflare as CDN, changes have been made to work better with Garry's Mod.
+	It is based on @9oelM's YouTube-Lite work. Src: https://github.com/9oelM/youtube-lite
+--]]
 local WATCH_URL = "https://gmod-youtube.pages.dev/#/watch?v=%s"
+
+local API_URL = "https://www.youtube.com/watch?v=%s"
 
 ---
 -- Helper function for converting ISO 8601 time strings, this is the formatting
