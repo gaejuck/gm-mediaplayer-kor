@@ -52,20 +52,6 @@ local JS_Interface = [[
 				if (!!player && !!player.getDuration) {
 					clearInterval(checkerInterval)
 
-					{ // Player resizer
-						var frame = player.g
-						var root = document.getElementById("root")
-
-						document.body.appendChild(frame)
-
-						frame.style.backgroundColor = "#000"
-						frame.style.height = "100vh"
-						frame.style.left = "0px"
-						frame.style.width = "100%"
-
-						if (!!root) { root.remove() }
-					}
-
 					window.MediaPlayer = player
 				}
 			}
@@ -74,7 +60,7 @@ local JS_Interface = [[
 ]]
 
 local API_URL = "https://www.youtube.com/watch?v=%s"
-local WATCH_URL = "https://youtube-lite.js.org/#/watch?v=%s"
+local WATCH_URL = "https://gmod-youtube.pages.dev/#/watch?v=%s"
 
 ---
 -- Helper function for converting ISO 8601 time strings, this is the formatting
