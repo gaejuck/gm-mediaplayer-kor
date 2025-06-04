@@ -1,16 +1,93 @@
 AddCSLuaFile "shared.lua"
 include "shared.lua"
 
-local MetadataUrl = "https://archive.org/metadata/%s/files/"
-local DownloadUrl = "https://cors.archive.org/download/%s/%s"
-local FallbackThumbnail = "https://cataas.com/cat?width=1280&height=720"
+local METADATA_URL = "https://archive.org/metadata/%s"
 
+-- format support
 local VALID_FORMATS = {
 	["MPEG4"] = true,
 	["h.264"] = true,
 	["h.264 IA"] = true,
 	["Ogg Video"] = true,
+	["WebM"] = true,
+	["MP4"] = true,
+	["AVI"] = true,
+	["MOV"] = true,
+	["MKV"] = true
 }
+
+-- file selection logic
+local function FindBestVideoFile(files, requestedFile)
+	local candidates = {}
+
+	for _, file in pairs(files) do
+		if VALID_FORMATS[file.format] and file.name then
+			-- Prioritize requested file
+			if requestedFile then
+				local normalizedRequested = requestedFile:gsub("+", " ")
+				local normalizedFile = file.name:gsub("+", " ")
+
+				if file.original == normalizedRequested or
+				   file.name == requestedFile or
+				   normalizedFile == normalizedRequested then
+					return file
+				end
+			end
+
+			table.insert(candidates, file)
+		end
+	end
+
+	if #candidates == 0 then return nil end
+
+	-- If no file was requested, take the first one from the list
+	return candidates[1]
+end
+
+-- title generation
+local function GenerateTitle(response, file, identifier)
+	if response.metadata and response.metadata.title then
+		local title = response.metadata.title
+		if istable(title) then
+			title = title[1] or identifier
+		end
+
+		-- Add file info if it's part of a collection
+		if file.name and file.name ~= title then
+			local fileName = file.name:gsub("%.%w+$", "") -- Remove extension
+			fileName = fileName:gsub("+", " ") -- Replace + with spaces
+			return title .. " - " .. fileName
+		end
+
+		return title
+	end
+
+	-- Fallback to file name
+	if file.name then
+		local title = file.name:gsub("%.%w+$", ""):gsub("+", " ")
+		return title
+	end
+
+	return "Internet Archive: " .. identifier
+end
+
+-- thumbnail handling
+local function GetThumbnail(files, videoFileName)
+	local baseName = videoFileName:gsub("%.%w+$", "")
+
+	for _, file in pairs(files) do
+		if file.format == "Thumbnail" then
+			-- Look for thumbnails matching the video file
+			if file.original and file.original:find(baseName, 1, true) then
+				return file.name
+			end
+
+		end
+	end
+
+	-- no thumbnail
+	return nil
+end
 
 function SERVICE:GetMetadata( callback )
 	if self._metadata then
@@ -31,85 +108,52 @@ function SERVICE:GetMetadata( callback )
 		metadata.title = cache.title
 		metadata.duration = tonumber(cache.duration)
 		metadata.thumbnail = cache.thumbnail
+		metadata.newdata = cache.newdata
 
 		self:SetMetadata(metadata)
 		MediaPlayer.Metadata:Save(self)
 
 		callback(self._metadata)
 	else
-		local dataID = string.Explode(",", self:GetArchiveVideoId())
-		local identifier, file = dataID[1], ( dataID[2] and dataID[2] or nil )
 
-		local function GetThumbnail(response, file)
-			local thumbnail
+		local parts = string.Explode(",", self:GetArchiveVideoId())
+		local identifier = parts[1]
+		local requestedFile = parts[2]
 
-			for k, v in pairs(response) do
-				if not thumbnail and (v.format == "Thumbnail" and v.original == file) then
-					thumbnail = v.name
-					break
-				end
-			end
-
-			return thumbnail
-		end
-
-		local function onReceive ( body, length, headers, code )
-			if not body or code ~= 200 then
-				return callback( false, "API request did not succeed." )
+		local function processMetadata(body, length, headers, code)
+			if code ~= 200 or not body then
+				return callback(false, "Failed to fetch metadata from Internet Archive")
 			end
 
 			local response = util.JSONToTable(body)
-			if not response or not response.result then
-				return callback( false, "Failed to parse video's metadata response." )
+			if not response or not response.files then
+				return callback(false, "Invalid metadata response")
 			end
 
-			response = response.result
-			local name, duration
-
-			if file then
-				oFile = file
-				file = file:Replace("+", " ")
+			local bestMatch = FindBestVideoFile(response.files, requestedFile)
+			if not bestMatch then
+				return callback(false, "No compatible video files found")
 			end
 
-			for k, v in pairs(response) do
+			local info = {
+				title = GenerateTitle(response, bestMatch, identifier),
+				duration = math.Round(bestMatch.length or 0),
+				thumbnail = GetThumbnail(response.files, bestMatch.name),
+				newdata = identifier .. "," .. bestMatch.name
+			}
 
-				if file then
-
-					if (v.original and v.original == file and VALID_FORMATS[v.format]) then
-						name, duration = v.name, v.length
-						break
-					end
-
-					if (v.name and v.name == oFile and VALID_FORMATS[v.format]) then
-						name, duration = v.name, v.length
-					end
-
-				else
-					if (v.format and VALID_FORMATS[v.format]) then
-						name, duration = v.name, v.length
-						break
-					end
-				end
-			end
-
-			if not name or not duration then -- Do we have everything that we want?
-				return callback( false, "Failed to gather video's dependencies." )
-			end
-
-			local metadata, thumbnail = {}, GetThumbnail(response, file or name)
-			metadata.title = name
-			metadata.duration = math.Round(duration)
-			metadata.thumbnail = thumbnail and DownloadUrl:format(identifier, thumbnail) or FallbackThumbnail
-
-			self:SetMetadata(metadata)
+			self:SetMetadata(info)
 			MediaPlayer.Metadata:Save(self)
 
 			callback(self._metadata)
 		end
 
-		local apiurl = MetadataUrl:format( identifier )
-		self:Fetch(apiurl, onReceive, function( code )
+		local url = METADATA_URL:format(identifier)
+		self:Fetch(url, processMetadata, onFailure)
+
+		self:Fetch(url, onReceive, function( code )
 			callback(false, "Failed to load Archive Video [" .. tostring(code) .. "]")
 		end)
+
 	end
 end

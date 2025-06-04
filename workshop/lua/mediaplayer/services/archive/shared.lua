@@ -26,12 +26,19 @@ function SERVICE:GetArchiveVideoId()
 
 		local url = self.urlinfo
 
-		local identifier = url.path:match("^/details/([%w%-%._]+)")
+		-- Extract identifier
+		local identifier = url.path:match("^/details/([^/]+)")
 		if identifier then
-			local file = ("^/details/%s/([%%w%%-%%.%%/%%+%%&_]+)"):format(identifier)
-			file = url.path:match(file)
 
-			self.videoId = ("%s%s"):format(identifier, file and "," .. file or "")
+			-- Extract specific file if present
+			local file = url.path:match("^/details/[^/]+/(.+)$")
+
+			-- Handle URL encoding
+			if file then
+				file = url.unescape(file)
+			end
+
+			self.videoId = identifier .. (file and "," .. file or "")
 		end
 
 	end

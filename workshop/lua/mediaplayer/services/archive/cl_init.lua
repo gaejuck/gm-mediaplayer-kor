@@ -2,11 +2,15 @@ include "shared.lua"
 
 DEFINE_BASECLASS( "mp_service_browser" )
 
-function SERVICE:GetURL()
-	local Data = string.Explode(",", self:GetArchiveVideoId())
-	local identifier, file = Data[1], ( Data[2] and Data[2] or nil )
+local DOWNLOAD_URL = "https://cors.archive.org/download/%s/%s"
 
-	return ("https://cors.archive.org/download/%s/%s"):format( identifier, self:Title() )
+function SERVICE:GetURL()
+	print(self._metadata.newdata)
+	local parts = string.Explode(",", self._metadata.newdata)
+	local identifier = parts[1]
+	local fileName = parts[2]
+
+	return DOWNLOAD_URL:format(identifier, fileName)
 end
 
 do -- Media Hook
