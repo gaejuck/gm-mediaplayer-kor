@@ -26,6 +26,7 @@ local JS_Interface = [[
 		var adOverlay = document.querySelectorAll("[data-test-selector=\"sad-overlay\"]")[0]
 
 		if (!adOverlay && !!player && player.paused == false && player.readyState == 4) {
+			if (player.muted) {player.muted = false}
 			clearInterval(checkerInterval);
 
 			window.MediaPlayer = player;
