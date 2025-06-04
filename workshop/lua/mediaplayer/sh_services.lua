@@ -106,6 +106,7 @@ do
 		"twitch",
 		"dailymotion",
 		"archive",
+		"gdrive",
 
 		-- HTML Resources
 		"resource", -- base
