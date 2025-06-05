@@ -107,6 +107,7 @@ do
 		"dailymotion",
 		"archive",
 		"gdrive",
+		"tiktok",
 
 		-- HTML Resources
 		"resource", -- base
