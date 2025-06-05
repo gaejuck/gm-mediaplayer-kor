@@ -13,7 +13,7 @@ function SERVICE:New( url )
 end
 
 function SERVICE:Match( url )
-	return url:match("tiktok.com")
+	return url:match("^https?://w?w?w?%.?tiktok%.com/@[^/]+/video/(%d+)")
 end
 
 function SERVICE:IsTimed()
@@ -36,9 +36,9 @@ function SERVICE:GetMediaID()
 
 		local url = self.urlinfo
 
-		-- https://drive.google.com/file/d/(fileId)
-		if url.path and url.path:match("/@[%a%w%d%_%.]+/video/(%d+)$") then
-			videoId = url.path:match("/@[%a%w%d%_%.]+/video/(%d+)$")
+		-- https://tiktok.com/(CreatorID)/video/(VideoID)
+		if url.path and url.path:match("/@[^/]+/video/(%d+)") then
+			videoId = url.path:match("/@[^/]+/video/(%d+)")
 		end
 
 		self.videoId = videoId
