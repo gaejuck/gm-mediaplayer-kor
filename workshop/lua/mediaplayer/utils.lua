@@ -306,7 +306,14 @@ if CLIENT then
 				end
 
 				if msg:StartWith("DURATION:") then
-					local duration = math.ceil(tonumber(string.sub(msg, 10)))
+					local str_duration = string.sub(msg, 10)
+					
+					local duration
+					if str_duration == "Infinity" then // Edgecase from fragmented webm
+						duration = math.huge
+					else
+						duration = math.ceil(tonumber(str_duration))
+					end
 
 					callback(true, duration)
 					panel:Remove()
