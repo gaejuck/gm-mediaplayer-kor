@@ -7,6 +7,8 @@ SERVICE.PrefetchMetadata = true
 SERVICE.FileExtensions = {
 	"webm",
 	"mp4",
+	"mov",
+	"mkv"
 }
 
 DEFINE_BASECLASS( "mp_service_base" )
@@ -39,6 +41,8 @@ if CLIENT then
 	local MimeTypes = {
 		webm = "video/webm",
 		mp4 = "video/mp4",
+		mov = "video/quicktime",
+		mkv = "video/x-matroska",
 	}
 
 	local EmbedHTML = [[
