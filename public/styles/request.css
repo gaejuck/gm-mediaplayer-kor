@@ -294,6 +294,8 @@ h1 {
 .logo-twitch { background-image: url(../images/logos/twitch.png) }
 .logo-youtube { background-image: url(../images/logos/youtube.png) }
 .logo-soundcloud { background-image: url(../images/logos/soundcloud.png) }
+.logo-bitchute { background-image: url(../images/logos/bitchute.svg); background-size: 55px; }
+.logo-odysee { background-image: url(../images/logos/odysee.svg); background-size: 55px; }
 
 .notice {
     text-align: center;
