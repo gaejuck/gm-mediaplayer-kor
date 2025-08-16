@@ -3,6 +3,7 @@ local MediaPlayer = MediaPlayer
 local HasFocus = system.HasFocus
 local MuteUnfocused = MediaPlayer.Cvars.MuteUnfocused
 local CeilPower2 = MediaPlayerUtils.CeilPower2
+local math_Clamp = math.Clamp
 
 --[[---------------------------------------------------------
 	Base Media Player
@@ -225,7 +226,23 @@ function MEDIAPLAYER:Think()
 		if not HasFocus() and MuteUnfocused:GetBool() then
 			volume = 0
 		else
-			volume = MediaPlayer.Volume()
+			local baseVolume = MediaPlayer.Volume()
+
+			if MediaPlayer.Cvars.Audio3D:GetBool() then
+				local localPlayer = LocalPlayer()
+
+				local playerPos = localPlayer:GetPos()
+				local entityPos = self:GetPos()
+				local distance = playerPos:Distance(entityPos)
+
+				local minDistance = MediaPlayer.Cvars.ProximityMin:GetFloat()
+				local maxDistance = MediaPlayer.Cvars.ProximityMax:GetFloat()
+
+				local falloff = 1 - ((distance - minDistance) / (maxDistance - minDistance))
+				volume = math_Clamp(baseVolume * falloff, 0, 1)
+			else
+				volume = baseVolume
+			end
 		end
 
 		media:Volume( volume )

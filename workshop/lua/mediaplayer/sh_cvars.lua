@@ -26,5 +26,7 @@ if CLIENT then
 	MediaPlayer.Cvars.MuteUnfocused	= CreateClientConVar( "mediaplayer_mute_unfocused", 1, true, false )
 	MediaPlayer.Cvars.Fullscreen	= CreateClientConVar( "mediaplayer_fullscreen", 0, false, false )
 	MediaPlayer.Cvars.DrawThumbnails = CreateClientConVar( "mediaplayer_draw_thumbnails", 0, true, false )
+	MediaPlayer.Cvars.ProximityMin = CreateClientConVar( "mediaplayer_proximity_min", 100, true, false )
+	MediaPlayer.Cvars.ProximityMax = CreateClientConVar( "mediaplayer_proximity_max", 1000, true, false )
 
 end

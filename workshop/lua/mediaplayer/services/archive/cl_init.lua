@@ -66,7 +66,7 @@ do	-- Media Controls
 	end
 
 	function SERVICE:SetVolume( volume )
-		local js = JS_Volume:format( MediaPlayer.Volume() )
+		local js = JS_Volume:format( volume )
 		self.Browser:RunJavascript(js)
 	end
 
