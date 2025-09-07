@@ -27,16 +27,6 @@ function MediaPlayer.Volume( volume )
 		-- Set volume convar
 		RunConsoleCommand( "mediaplayer_volume", volume )
 
-		-- Apply volume to all media players
-		for _, mp in pairs( MediaPlayer.List ) do
-			if mp:IsPlaying() then
-				local media = mp:CurrentMedia()
-				if media then
-					media:Volume( volume )
-				end
-			end
-		end
-
 		hook.Run( MP.EVENTS.VOLUME_CHANGED, volume, cur )
 
 		cur = volume
