@@ -7,9 +7,24 @@ DEFINE_BASECLASS( "mp_service_browser" )
 	Src: https://github.com/samuelmaddock/gm-mediaplayer/pull/34
 --]]
 
-local JS_Pause = "if(window.MediaPlayer) MediaPlayer.pause();"
-local JS_Play = "if(window.MediaPlayer) MediaPlayer.play();"
-local JS_Volume = "if(window.MediaPlayer) MediaPlayer.volume = %s;"
+local JS_Pause = [[
+	if(window.MediaPlayer) {
+		MediaPlayer.pause()
+		mp_paused = true
+	} 
+]]
+local JS_Play = [[
+	if(window.MediaPlayer) {
+		MediaPlayer.play();
+		mp_paused = false
+	} 
+]]
+local JS_Volume = [[
+	if (window.MediaPlayer) {
+		MediaPlayer.volume = %s * 100;
+	}
+]]
+
 local JS_Seek = [[
 	if (window.MediaPlayer) {
 		var seekTime = %s;
