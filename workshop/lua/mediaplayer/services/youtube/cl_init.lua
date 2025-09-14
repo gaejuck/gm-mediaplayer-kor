@@ -37,7 +37,7 @@ local JS_Seek = [[
 	}
 ]]
 
-local WATCH_URL = "https://gm-media-player.pages.dev/youtube.html?v=%s"
+local WATCH_URL = "https://purrcoding-mediaplayer.pages.dev/youtube.html?v=%s"
 local API_URL = "https://www.youtube.com/watch?v=%s"
 
 ---
