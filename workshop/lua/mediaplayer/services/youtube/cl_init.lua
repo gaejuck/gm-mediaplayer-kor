@@ -21,7 +21,7 @@ local JS_Play = [[
 ]]
 local JS_Volume = [[
 	if (window.MediaPlayer) {
-		MediaPlayer.volume = %s * 100;
+		MediaPlayer.volume = %s;
 	}
 ]]
 
