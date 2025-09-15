@@ -25,7 +25,20 @@ MediaPlayer.SetConfig({
 		-- URL of the request menu.
 		-- @type String
 		--
-		url = "https://purrcoding-mediaplayer.pages.dev/request.html"
+		url = "https://purrcoding-mediaplayer.pages.dev/request"
+
+	},
+
+	---
+	-- YoutTube player
+	--
+	youtube = {
+
+		---
+		-- URL where the YouTube player is located.
+		-- @type String
+		--
+		url = "https://purrcoding-mediaplayer.pages.dev/youtube"
 
 	}
 

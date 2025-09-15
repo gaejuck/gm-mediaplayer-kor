@@ -37,7 +37,6 @@ local JS_Seek = [[
 	}
 ]]
 
-local WATCH_URL = "https://purrcoding-mediaplayer.pages.dev/youtube.html?v=%s"
 local API_URL = "https://www.youtube.com/watch?v=%s"
 
 ---
@@ -166,8 +165,10 @@ function SERVICE:OnBrowserReady( browser )
 	BaseClass.OnBrowserReady( self, browser )
 
 	local videoId = self:GetYouTubeVideoId()
-	local curTime = self:CurrentTime()
-	local url = WATCH_URL:format(videoId)
+	-- local curTime = self:CurrentTime()
+
+	local url = MediaPlayer.GetConfigValue( "youtube.url" )
+	url = url .. ("?v=%s"):format(videoId)
 
 	-- Add start time to URL if the video didn't just begin
 	-- if self:IsTimed() and curTime > 3 then
