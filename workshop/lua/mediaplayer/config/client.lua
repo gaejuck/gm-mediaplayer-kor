@@ -12,7 +12,7 @@ MediaPlayer.SetConfig({
 		-- Base URL where HTML content is located.
 		-- @type String
 		--
-		base_url = "https://purrcoding-mediaplayer.pages.dev/"
+		base_url = "https://purrcoding-mediaplayer.duckdns.org/"
 
 	},
 
@@ -25,7 +25,7 @@ MediaPlayer.SetConfig({
 		-- URL of the request menu.
 		-- @type String
 		--
-		url = "https://purrcoding-mediaplayer.pages.dev/request"
+		url = "https://purrcoding-mediaplayer.duckdns.org/request.html"
 
 	},
 
@@ -38,7 +38,7 @@ MediaPlayer.SetConfig({
 		-- URL where the YouTube player is located.
 		-- @type String
 		--
-		url = "https://purrcoding-mediaplayer.pages.dev/youtube"
+		url = "https://purrcoding-mediaplayer.duckdns.org/youtube.html"
 
 	}
 
