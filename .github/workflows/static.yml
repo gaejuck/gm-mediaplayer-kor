@@ -1,33 +1,27 @@
 name: Trigger Netlify Build on public/ changes
 
-# Only trigger if files in the public/ folder change
 on:
   push:
-    branches: ["master"]
     paths:
       - 'public/**'
-      - '.github/workflows/static.yml'
 
 jobs:
   netlify-build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout Code
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      # Optional: Check whether public/ has really changed
-      - name: Check for changes in public/
+      - name: Check if public/ actually changed
         id: check_changes
         run: |
-          echo "CHANGED=$(git diff --name-only HEAD~1 | grep -E '^public/' || true)" >> $GITHUB_ENV
+          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E '^public/' || true)
+          echo "CHANGED=$CHANGED" >> $GITHUB_ENV
           if [ -z "$CHANGED" ]; then
-            echo "No changes in public/, exiting."
+            echo "No real changes in public/, skipping build."
             exit 0
           fi
 
-      # Trigger Netlify Build Hook
       - name: Trigger Netlify Build
-        run: |
-          curl -X POST -d '{}' ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: curl -X POST -d '{}' ${{ secrets.NETLIFY_BUILD_HOOK }}
