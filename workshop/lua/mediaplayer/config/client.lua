@@ -38,7 +38,8 @@ MediaPlayer.SetConfig({
 		-- URL where the YouTube player is located.
 		-- @type String
 		--
-		url = "https://gm-mediaplayer.netlify.app/youtube.html"
+		url = "https://gm-mediaplayer.netlify.app/youtube.html",
+		url_meta = "https://gm-mediaplayer.netlify.app/youtube_meta.html",
 
 	}
 
