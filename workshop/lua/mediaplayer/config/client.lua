@@ -12,7 +12,7 @@ MediaPlayer.SetConfig({
 		-- Base URL where HTML content is located.
 		-- @type String
 		--
-		base_url = "https://purrcoding-mediaplayer.duckdns.org/"
+		base_url = "https://gm-mediaplayer.netlify.app/"
 
 	},
 
@@ -25,7 +25,7 @@ MediaPlayer.SetConfig({
 		-- URL of the request menu.
 		-- @type String
 		--
-		url = "https://purrcoding-mediaplayer.duckdns.org/request.html"
+		url = "https://gm-mediaplayer.netlify.app/request.html"
 
 	},
 
@@ -38,7 +38,7 @@ MediaPlayer.SetConfig({
 		-- URL where the YouTube player is located.
 		-- @type String
 		--
-		url = "https://purrcoding-mediaplayer.duckdns.org/youtube.html"
+		url = "https://gm-mediaplayer.netlify.app/youtube.html"
 
 	}
 
