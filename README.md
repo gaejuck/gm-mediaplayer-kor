@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b90ecaf2-f800-4c6d-af99-356e7d875953/deploy-status)](https://app.netlify.com/projects/gm-mediaplayer/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b90ecaf2-f800-4c6d-af99-356e7d875953/deploy-status)](https://app.netlify.com/projects/gm-mediaplayer/deploys) [![Deploys by Netlify](https://www.netlify.com/assets/badges/netlify-badge-color-accent.svg)](https://www.netlify.com)
 
 Media Player (Updated Edition)
 ============
