@@ -12,7 +12,7 @@ MediaPlayer.SetConfig({
 		-- Base URL where HTML content is located.
 		-- @type String
 		--
-		base_url = "https://gm-mediaplayer.netlify.app/"
+		base_url = "https://gm-mediaplayer.pone.party/"
 
 	},
 
@@ -25,7 +25,7 @@ MediaPlayer.SetConfig({
 		-- URL of the request menu.
 		-- @type String
 		--
-		url = "https://gm-mediaplayer.netlify.app/request.html"
+		url = "https://gm-mediaplayer.pone.party/request.html"
 
 	},
 
@@ -38,8 +38,8 @@ MediaPlayer.SetConfig({
 		-- URL where the YouTube player is located.
 		-- @type String
 		--
-		url = "https://gm-mediaplayer.netlify.app/youtube.html",
-		url_meta = "https://gm-mediaplayer.netlify.app/youtube_meta.html",
+		url = "https://gm-mediaplayer.pone.party/youtube.html",
+		url_meta = "https://gm-mediaplayer.pone.party/youtube_meta.html",
 
 	}
 
