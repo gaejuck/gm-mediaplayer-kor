@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b90ecaf2-f800-4c6d-af99-356e7d875953/deploy-status)](https://app.netlify.com/projects/gm-mediaplayer/deploys)
+
 Media Player (Updated Edition)
 ============
 
