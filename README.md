@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b90ecaf2-f800-4c6d-af99-356e7d875953/deploy-status)](https://app.netlify.com/projects/gm-mediaplayer/deploys) [![Deploys by Netlify](https://www.netlify.com/assets/badges/netlify-badge-color-accent.svg)](https://www.netlify.com)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b90ecaf2-f800-4c6d-af99-356e7d875953/deploy-status)](https://app.netlify.com/projects/gm-mediaplayer/deploys)
 
 Media Player (Updated Edition)
 ============
@@ -7,6 +7,4 @@ Media Player (Updated Edition)
 
 Media Player is an addon for Garry's Mod which features several media streaming services able to be played synchronously in multiplayer.
 
-### Installation ###
-
-Place the contents of this GitHub repository into a new addon folder within your `garrysmod/addons/` directory. For those unfamiliar with Git, press the `Download ZIP` button in the right-hand sidebar.
+[![Deploys by Netlify](https://www.netlify.com/assets/badges/netlify-badge-color-accent.svg)](https://www.netlify.com)
