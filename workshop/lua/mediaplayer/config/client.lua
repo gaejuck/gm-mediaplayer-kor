@@ -12,7 +12,7 @@ MediaPlayer.SetConfig({
 		-- Base URL where HTML content is located.
 		-- @type String
 		--
-		base_url = "https://gaejuck.github.io/gm-mediaplayer-kor/"
+		base_url = "https://gaejuck.github.io/gm-mediaplayer-kor/public/"
 
 	},
 
@@ -25,7 +25,7 @@ MediaPlayer.SetConfig({
 		-- URL of the request menu.
 		-- @type String
 		--
-		url = "https://gaejuck.github.io/gm-mediaplayer-kor/request.html"
+		url = "https://gaejuck.github.io/gm-mediaplayer-kor/public/request.html"
 
 	},
 
@@ -38,8 +38,8 @@ MediaPlayer.SetConfig({
 		-- URL where the YouTube player is located.
 		-- @type String
 		--
-		url = "https://gaejuck.github.io/gm-mediaplayer-kor/youtube.html",
-		url_meta = "https://gaejuck.github.io/gm-mediaplayer-kor/youtube_meta.html",
+		url = "https://gaejuck.github.io/gm-mediaplayer-kor/public/youtube.html",
+		url_meta = "https://gaejuck.github.io/gm-mediaplayer-kor/public/youtube_meta.html",
 
 	}
 
